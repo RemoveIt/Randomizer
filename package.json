@@ -1,0 +1,21 @@
+{
+  "name": "Randomizer",
+  "version": "0.0.0",
+  "description": "Randomizer",
+  "main": "app.js",
+  "author": {
+    "name": "",
+    "email": ""
+  },
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-nodemon": "^1.0.4",
+    "gulp-typescript": "^2.1.0",
+    "open": "0.0.5",
+    "run-sequence": "^1.0.1"
+  },
+  "dependencies": {
+    "express": "^4.9.8",
+    "socket.io": "^1.1.0"
+  }
+}

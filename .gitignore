@@ -228,3 +228,6 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+Server/**/*.js
+out/
+.ntvs_analysis.dat
