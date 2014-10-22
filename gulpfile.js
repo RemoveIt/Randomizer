@@ -23,7 +23,7 @@ gulp.task("build-client", function () {
         .pipe(rename("script.js"))
         .pipe(gulp.dest("./out/static"));
 
-    gulp.src(["./Client/**/*.css", "./Client/**/*.html"])
+    gulp.src(["./Client/**/*.css", "./Client/**/*.html", "./Client/3rd/*.*"])
         .pipe(gulp.dest("./out/static"))
        
 });

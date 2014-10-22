@@ -1,12 +1,11 @@
 ﻿import express = require("express");
 var app = express();
+var serveStatic = require("serve-static");
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-app.get('/', function (req, res) {
-    res.sendFile("index.html", { root: "./static" });
-});
+app.use(serveStatic('./static', { 'index': ['index.html'] }));
 
 io.on('connection', function (socket) {
     console.log('a user connected');
