@@ -22,7 +22,10 @@
     <Content Include="index.html" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="game.ts" />
     <TypeScriptCompile Include="init.ts" />
+    <TypeScriptCompile Include="Typings\pixi.d.ts" />
+    <TypeScriptCompile Include="Typings\socket.io-client.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>

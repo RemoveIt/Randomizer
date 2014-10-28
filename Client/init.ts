@@ -1,9 +1,14 @@
 ﻿window.onload = function () {
-    var socket = io.connect(window.location.href);
+ 
+	var game = new Game(<HTMLCanvasElement> document.getElementById("GameCanvas"));
+  
 
-    var canvas = <HTMLCanvasElement>document.getElementById("GameCanvas");
-    var renderer = PIXI.autoDetectRenderer(800, 600, canvas);
-    var stage = new PIXI.Stage(0);
+	function Loop() {
 
-    renderer.render(stage);
+		game.Render();
+		requestAnimationFrame(Loop);
+
+	}
+
+	requestAnimationFrame(Loop);
 }

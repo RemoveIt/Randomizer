@@ -1,5 +1,5 @@
 var gulp = require("gulp");
-var typescript = require("gulp-typescript");
+var typescript = require("gulp-tsc");
 var runSequence = require("run-sequence");
 var open = require("open");
 var nodemon = require("gulp-nodemon");
@@ -19,7 +19,7 @@ gulp.task("build-server", function () {
 
 gulp.task("build-client", function () {
     gulp.src("./Client/**/*.ts")
-        .pipe(typescript({ target: "ES5" }))
+        .pipe(typescript({ target: "ES5", out: "script.js" }))
         .pipe(rename("script.js"))
         .pipe(gulp.dest("./out/static"));
 

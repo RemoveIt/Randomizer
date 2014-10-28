@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31010.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Server", "Server\Server.njsproj", "{8D5E8DD9-7E1F-4C72-A948-67E82789E1CA}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repo", "Repo", "{C8D4C559-783A-4253-BF8A-DC55C68C6E85}"
 	ProjectSection(SolutionItems) = preProject
 		gulpfile.js = gulpfile.js
@@ -13,20 +11,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repo", "Repo", "{C8D4C559-7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{835B0B94-816C-4CB5-9A8B-E4BC749840BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{7CDD725F-559D-46EF-B4B1-D2FD8A1C1CB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8D5E8DD9-7E1F-4C72-A948-67E82789E1CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D5E8DD9-7E1F-4C72-A948-67E82789E1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D5E8DD9-7E1F-4C72-A948-67E82789E1CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D5E8DD9-7E1F-4C72-A948-67E82789E1CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{835B0B94-816C-4CB5-9A8B-E4BC749840BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{835B0B94-816C-4CB5-9A8B-E4BC749840BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{835B0B94-816C-4CB5-9A8B-E4BC749840BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{835B0B94-816C-4CB5-9A8B-E4BC749840BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CDD725F-559D-46EF-B4B1-D2FD8A1C1CB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CDD725F-559D-46EF-B4B1-D2FD8A1C1CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CDD725F-559D-46EF-B4B1-D2FD8A1C1CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CDD725F-559D-46EF-B4B1-D2FD8A1C1CB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
