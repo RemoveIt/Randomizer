@@ -23,7 +23,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="game.ts" />
+    <TypeScriptCompile Include="gameStage.ts" />
     <TypeScriptCompile Include="init.ts" />
+    <TypeScriptCompile Include="keyboardManager.ts" />
     <TypeScriptCompile Include="Typings\pixi.d.ts" />
     <TypeScriptCompile Include="Typings\socket.io-client.d.ts" />
   </ItemGroup>

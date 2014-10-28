@@ -1,9 +1,10 @@
 var gulp = require("gulp");
-var typescript = require("gulp-tsc");
+var typescript = require("gulp-typescript");
 var runSequence = require("run-sequence");
 var open = require("open");
 var nodemon = require("gulp-nodemon");
 var rename = require("gulp-rename");
+var concat = require("gulp-concat");
 
 gulp.task("default", function () {
     runSequence(["build-server", "build-client"],
@@ -19,8 +20,8 @@ gulp.task("build-server", function () {
 
 gulp.task("build-client", function () {
     gulp.src("./Client/**/*.ts")
-        .pipe(typescript({ target: "ES5", out: "script.js" }))
-        .pipe(rename("script.js"))
+        .pipe(typescript({ target: "ES5" }))
+        .pipe(concat("script.js"))
         .pipe(gulp.dest("./out/static"));
 
     gulp.src(["./Client/**/*.css", "./Client/**/*.html", "./Client/3rd/*.*"])
