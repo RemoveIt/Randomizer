@@ -5,7 +5,7 @@
 	
 	constructor(canvas: HTMLCanvasElement) {
 		var socket = io.connect(window.location.href);
-		this.Renderer = PIXI.autoDetectRenderer(800, 600, canvas);
+		this.Renderer = PIXI.autoDetectRenderer(800, 600, { view:canvas });
 		this.GameStage = new GameStage();
 	
 	}

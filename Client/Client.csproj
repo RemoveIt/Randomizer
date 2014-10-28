@@ -22,9 +22,13 @@
     <Content Include="index.html" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="..\InterchangeFormat\playerData.ts">
+      <Link>Interchange\playerData.ts</Link>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="game.ts" />
     <TypeScriptCompile Include="gameStage.ts" />
-    <TypeScriptCompile Include="init.ts" />
+    <TypeScriptCompile Include="player.ts" />
+    <TypeScriptCompile Include="start.ts" />
     <TypeScriptCompile Include="keyboardManager.ts" />
     <TypeScriptCompile Include="Typings\pixi.d.ts" />
     <TypeScriptCompile Include="Typings\socket.io-client.d.ts" />

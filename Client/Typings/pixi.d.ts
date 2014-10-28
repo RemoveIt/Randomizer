@@ -16,8 +16,8 @@ declare module PIXI
     export var blendModes:{ NORMAL:number; SCREEN:number; };
 
 
-    /* MODULE FUNCTIONS */
-    export function autoDetectRenderer(width: number, height: number, view?: HTMLCanvasElement, transparent?: boolean, antialias?: boolean): IPixiRenderer;
+	/* MODULE FUNCTIONS */
+	export function autoDetectRenderer(width: number, height: number, options: { view?: HTMLCanvasElement; transparent?: boolean; antialias?: boolean}): IPixiRenderer;
     export function FilterBlock( mask:Graphics ):void;
     export function MaskFilter( graphics:Graphics ):void;
 

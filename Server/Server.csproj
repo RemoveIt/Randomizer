@@ -52,6 +52,9 @@
     <TypeScriptSourceMap>false</TypeScriptSourceMap>
   </PropertyGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="..\InterchangeFormat\playerData.ts">
+      <Link>Interchange\playerData.ts</Link>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="app.ts" />
     <TypeScriptCompile Include="Typings\express.d.ts" />
     <TypeScriptCompile Include="Typings\node.d.ts" />
