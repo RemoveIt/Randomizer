@@ -12,20 +12,21 @@ gulp.task("default", function () {
 });
 
 gulp.task("build-server", function () {
-    gulp.src("./Server/**/*.ts")
+    gulp.src(["./Server/**/*.ts", "./InterchangeFormat/*.ts"])
        .pipe(typescript({ module: "commonjs", target: "ES5" }))
        .pipe(gulp.dest("./out"));
 
 });
 
 gulp.task("build-client", function () {
-    gulp.src("./Client/**/*.ts")
+    gulp.src(["./Client/**/*.ts", "./InterchangeFormat/*.ts"])
         .pipe(typescript({ target: "ES5" }))
         .pipe(concat("script.js"))
         .pipe(gulp.dest("./out/static"));
 
-    gulp.src(["./Client/**/*.css", "./Client/**/*.html", "./Client/3rd/*.*"])
-        .pipe(gulp.dest("./out/static"))
+    gulp.src(["./Client/**/*.css", "./Client/**/*.html", "./Client/3rd/*.*","Resources/*.*"])
+        .pipe(gulp.dest("./out/static"));
+
        
 });
 

@@ -432,7 +432,18 @@ declare module PIXI
         constructor(width: number, height: number, view?: HTMLCanvasElement, transparent?: boolean, antialias?:boolean );
         render(stage: Stage): void;
         resize(width: number, height: number): void;
-    }
+	}
+
+	export class SpriteBatch extends DisplayObject {
+		children: DisplayObject[];
+		constructor();
+
+		addChild(child: DisplayObject): void;
+		addChildAt(child: DisplayObject, index: number): void;
+		getChildAt(index: number): DisplayObject;
+		removeChild(child: DisplayObject): void;
+		swapChildren(child: DisplayObject, child2: DisplayObject): void;
+	}
 
 }
 

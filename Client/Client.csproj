@@ -25,6 +25,8 @@
     <TypeScriptCompile Include="..\InterchangeFormat\playerData.ts">
       <Link>Interchange\playerData.ts</Link>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="config.ts" />
+    <TypeScriptCompile Include="currentPlayer.ts" />
     <TypeScriptCompile Include="game.ts" />
     <TypeScriptCompile Include="gameStage.ts" />
     <TypeScriptCompile Include="player.ts" />
