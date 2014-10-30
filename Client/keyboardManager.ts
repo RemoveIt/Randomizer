@@ -8,6 +8,7 @@
 
 	static Start() {
 		addEventListener("keydown", (keyEvent) => {
+			if (KeyboardManager.keys[keyEvent.keyCode]) return;
 			KeyboardManager.keys[keyEvent.keyCode] = true;
 			for (var i = 0; i < KeyboardManager.listenerList.length; i++) {
 				KeyboardManager.listenerList[i].OnKeyPress(keyEvent.keyCode);

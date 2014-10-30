@@ -10,3 +10,8 @@ interface PlayerData {
 	MovV: IPoint;
 }
 
+//On object start or stop moving
+interface MovingData {
+	Pos: IPoint;
+	MovV: IPoint;
+}
