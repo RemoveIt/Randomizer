@@ -4,6 +4,13 @@ interface IPoint {
 }
 
 
+interface ServerResponse {
+	ObjectID;
+	Data;
+
+}
+
+
 // On player spawn or on sending info about existing players in map
 interface PlayerData {
 	Pos: IPoint;
