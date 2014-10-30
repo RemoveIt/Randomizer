@@ -5,10 +5,8 @@ window.onload = function () {
 	KeyboardManager.Start();
 
 	function Loop() {
-
-		game.Render();
 		requestAnimationFrame(Loop);
-
+		game.Render();
 	}
 
 	requestAnimationFrame(Loop);

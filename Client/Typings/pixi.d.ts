@@ -369,7 +369,7 @@ declare module PIXI
 
     export class Text extends Sprite
     {
-        constructor(text: string, style: ITextStyle);
+        constructor(text: string, style?: ITextStyle);
         destroy(destroyTexture:boolean):void;
         setText(text: string): void;
         setStyle(style: ITextStyle): void;
