@@ -13,14 +13,14 @@ gulp.task("default", function () {
 
 gulp.task("build-server", function () {
     gulp.src(["./Server/**/*.ts", "./InterchangeFormat/*.ts"])
-       .pipe(typescript({ module: "commonjs", target: "ES5" }))
+       .pipe(typescript({ module: "commonjs", target: "ES5", removeComments:true }))
        .pipe(gulp.dest("./out"));
 
 });
 
 gulp.task("build-client", function () {
     gulp.src(["./Client/**/*.ts", "./InterchangeFormat/*.ts"])
-        .pipe(typescript({ target: "ES5" }))
+        .pipe(typescript({ target: "ES5", removeComments:true }))
         .pipe(concat("script.js"))
         .pipe(gulp.dest("./out/static"));
 

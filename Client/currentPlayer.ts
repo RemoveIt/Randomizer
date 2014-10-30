@@ -1,8 +1,10 @@
-﻿class CurrentPlayer extends Player implements IKeyboardListener {
+﻿///<reference path="./player.ts"/>
+
+class CurrentPlayer extends Player implements IKeyboardListener {
 
 	constructor(data: PlayerData) {
 		super(data);
-		//KeyboardManager.AddListener(this);
+		KeyboardManager.AddListener(this);
 	}
 
 	OnKeyPress(keyCode: number) {
