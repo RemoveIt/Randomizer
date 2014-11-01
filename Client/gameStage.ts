@@ -20,6 +20,8 @@
 	}
 
 	Update() {
-		this.CurrPlr.Update();
+		if (this.CurrPlr) {
+			this.CurrPlr.Update();
+		}
 	}
 }
