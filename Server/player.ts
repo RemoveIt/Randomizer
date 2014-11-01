@@ -1,13 +1,15 @@
-﻿class Player {
+﻿import socketio = require("socket.io");
 
-	ID;
-	Socket;
+class Player {
+	ID: string;
+	Socket: socketio.Socket;
 	Pos: IPoint;
 	MovingV: IPoint;
 
-	constructor(Socket) {
-		//this.ID = Socket;
-		this.Pos = { x: Math.random() * 200, y: Math.random() * 200 };
+	constructor(socket:socketio.Socket) {
+		this.ID = socket.id;
+		this.Socket = socket;
+		this.Pos = { x: (Math.random() * 200) | 0, y: (Math.random() * 200) | 0 };
 		this.MovingV = { x: 0, y: 0 };
 	}
 
@@ -16,3 +18,5 @@
 		this.Pos = movingData.Pos;
 	}
 }
+
+export = Player;

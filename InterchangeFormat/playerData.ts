@@ -3,21 +3,30 @@ interface IPoint {
 	y: number;
 }
 
+enum ServerResoneRange { Me, Specific, List, All };
 
+/**
+ * All server responses must be wraped with it
+ */
 interface ServerResponse {
-	ObjectID;
+	Range: ServerResoneRange;
+	ObjectID?: string[];
 	Data;
-
 }
 
-
-// On player spawn or on sending info about existing players in map
+/**
+ * On player spawn or on sending info about existing players in map
+ * CMD: NewPlayer
+ */
 interface PlayerData {
 	Pos: IPoint;
 	MovV: IPoint;
 }
 
-//On object start or stop moving
+/**
+ * On object start or stop moving
+ * CMD: Moving
+ */
 interface MovingData {
 	Pos: IPoint;
 	MovV: IPoint;

@@ -56,6 +56,10 @@
       <Link>Interchange\playerData.ts</Link>
     </TypeScriptCompile>
     <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="player.ts" />
+    <TypeScriptCompile Include="playersManager.ts" />
+    <TypeScriptCompile Include="playersNetwork.ts" />
+    <TypeScriptCompile Include="server.ts" />
     <TypeScriptCompile Include="Typings\express.d.ts" />
     <TypeScriptCompile Include="Typings\node.d.ts" />
     <TypeScriptCompile Include="Typings\socket.io.d.ts" />
