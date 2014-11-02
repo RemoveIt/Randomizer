@@ -1,33 +1,32 @@
-interface IPoint {
-	x: number;
-	y: number;
-}
-
-enum ServerResoneRange { Me, Specific, List, All };
+// Server response types for Player namestring
+// New
 
 /**
- * All server responses must be wraped with it
+ * On player spawn or on sending info about existing players on map
+ * Namestring: Player Type: New
+ * Namestring: FirstPlayer Type: ???
  */
-interface ServerResponse {
-	Range: ServerResoneRange;
-	ObjectID?: string[];
-	Data;
-}
-
-/**
- * On player spawn or on sending info about existing players in map
- * CMD: NewPlayer
- */
-interface PlayerData {
+interface PlayerFullData {
+	ID: string;
 	Pos: IPoint;
 	MovV: IPoint;
 }
 
 /**
  * On object start or stop moving
- * CMD: Moving
+ * Namestring: Player Type: Moving
  */
 interface MovingData {
+	ID: string;
 	Pos: IPoint;
 	MovV: IPoint;
+}
+
+
+/**
+ * On object remove
+ * Namestring: Player Type: Remove
+ */
+interface ReferenceData {
+	ID: string;
 }

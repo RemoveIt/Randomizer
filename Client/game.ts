@@ -12,12 +12,13 @@
 			transparent: false,
 			resolution: 1
 		});
-		this.GameStage = new GameStage(this.Socket);
 
+		this.GameStage = new GameStage(this.Socket);
+		
 	}
 
 	Init() {
-
+		this.GameStage.Start(() => { });
 	}
 
 	Render() {

@@ -1,10 +1,12 @@
 ﻿///<reference path="./player.ts"/>
 
 class CurrentPlayer extends Player implements IKeyboardListener {
+	private socket: SocketIOClient.Socket;
 
-	constructor(data: PlayerData) {
+	constructor(data: PlayerFullData, socket: SocketIOClient.Socket) {
 		super(data);
 		KeyboardManager.AddListener(this);
+		this.socket = socket;
 	}
 
 	OnKeyPress(keyCode: number) {
@@ -32,6 +34,9 @@ class CurrentPlayer extends Player implements IKeyboardListener {
 		}
 
 		this.MovingV = tmpV;
+
+		this.socket.emit("Player", { Type: "Moving", Data: { ID: this.ID, Pos: { x: this.Sprite.position.x, y: this.Sprite.position.y }, MovV: this.MovingV } });
+
 
 	}
 

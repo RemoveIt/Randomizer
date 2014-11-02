@@ -3,7 +3,9 @@
 class PlayersNetwork {
 
 	static SetupConnection(socket: socketio.Socket) {
-		
+		socket.on("Player", () => {
+
+		});
 	}
 
 }

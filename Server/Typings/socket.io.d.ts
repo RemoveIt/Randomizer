@@ -26,7 +26,10 @@ declare module "socket.io" {
 			json: any;
 			log: any;
 			volatile: any;
-			broadcast: any;
+			broadcast: {
+				emit(ev: any, ...data: any[]);
+				send(data: any, fn: Function);
+			};
 			in(room: string): Socket;
 			to(room: string): Socket;
 			join(name: string, fn: Function): Socket;

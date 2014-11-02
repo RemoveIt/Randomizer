@@ -25,8 +25,14 @@ class Server {
 
 		this.socketServer.on("connection", (socket) => {
 			this.playersManager.Add(socket);
-			console.log("connection");
+
+			socket.on('disconnect',  () => {
+				this.playersManager.Remove(socket);
+			});
+
 		});
+
+
 	}
 }
 

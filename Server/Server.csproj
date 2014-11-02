@@ -52,11 +52,16 @@
     <TypeScriptSourceMap>false</TypeScriptSourceMap>
   </PropertyGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="..\InterchangeFormat\base.ts">
+      <Link>Interchange\base.ts</Link>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="..\InterchangeFormat\playerData.ts">
       <Link>Interchange\playerData.ts</Link>
     </TypeScriptCompile>
     <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="networkHelper.ts" />
     <TypeScriptCompile Include="player.ts" />
+    <TypeScriptCompile Include="playersList.ts" />
     <TypeScriptCompile Include="playersManager.ts" />
     <TypeScriptCompile Include="playersNetwork.ts" />
     <TypeScriptCompile Include="server.ts" />

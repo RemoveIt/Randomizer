@@ -1,8 +1,10 @@
 ﻿class Player {
+	ID: string;
 	Sprite: PIXI.Sprite;
 	MovingV: IPoint;
 
-	constructor(data: PlayerData) {
+	constructor(data: PlayerFullData) {
+		this.ID = data.ID;
 		this.Sprite = PIXI.Sprite.fromImage(config.src);
 		this.Sprite.position.x = data.Pos.x;
 		this.Sprite.position.y = data.Pos.y;

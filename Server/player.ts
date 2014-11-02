@@ -9,7 +9,7 @@ class Player {
 	constructor(socket:socketio.Socket) {
 		this.ID = socket.id;
 		this.Socket = socket;
-		this.Pos = { x: (Math.random() * 200) | 0, y: (Math.random() * 200) | 0 };
+		this.Pos = { x: (Math.random() * 500) | 0, y: (Math.random() * 500) | 0 };
 		this.MovingV = { x: 0, y: 0 };
 	}
 
