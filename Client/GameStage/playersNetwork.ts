@@ -20,6 +20,16 @@
 				console.log("Delete Player");
 				this.playersManager.Remove(data.Data[0].ID);
 			}
+
+			if (data.Type === "Moving") {
+				console.log("moving");
+				var tmpPlr = this.playersManager.Get(data.Data[0].ID);
+				tmpPlr.Sprite.position.x = data.Data[0].Pos.x;
+				tmpPlr.Sprite.position.y = data.Data[0].Pos.y;
+
+				tmpPlr.MovingV.x = data.Data[0].MovV.x
+				tmpPlr.MovingV.y = data.Data[0].MovV.y;
+			}
 		});
 	}
 

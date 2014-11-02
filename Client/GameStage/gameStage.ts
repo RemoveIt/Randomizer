@@ -23,8 +23,6 @@
 	}
 
 	Update() {
-		if (this.playerManager.CurrPlayer) {
-			this.playerManager.CurrPlayer.Update();
-		}
+		this.playerManager.Update();
 	}
 }

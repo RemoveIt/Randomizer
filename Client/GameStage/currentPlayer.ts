@@ -35,7 +35,7 @@ class CurrentPlayer extends Player implements IKeyboardListener {
 
 		this.MovingV = tmpV;
 
-		this.socket.emit("Player", { Type: "Moving", Data: { ID: this.ID, Pos: { x: this.Sprite.position.x, y: this.Sprite.position.y }, MovV: this.MovingV } });
+		this.socket.emit("Player", { Type: "Moving", Data: [{ ID: this.ID, Pos: { x: this.Sprite.position.x, y: this.Sprite.position.y }, MovV: this.MovingV }] });
 
 
 	}

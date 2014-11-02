@@ -19,8 +19,8 @@
 			if (ID == this.List[i].ID) {
 				return this.List[i];
 			}
-			return null;
 		}
+		return null;
 	}
 
 
@@ -30,6 +30,12 @@
 				this.PixiStage.removeChild(this.List[i].Sprite);
 				this.List.splice(i, 1);
 			}
+		}
+	}
+
+	Update() {
+		for (var i = 0; i < this.List.length; i++) {
+			this.List[i].Update();
 		}
 	}
 

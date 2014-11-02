@@ -1,12 +1,18 @@
 ﻿import NetworkHelper = require("./networkHelper");
+import PlayersNetwork = require("./playersNetwork");
 import Player = require("./player");
-import PlayersList = require("./PlayersList");
+import PlayersList = require("./playersList");
 import socketio = require("socket.io");
 
 // move this shit to hash table when harmony
 class PlayersManager {
 
 	PlayersList = new PlayersList();
+	private playersNetwork: PlayersNetwork;
+
+	constructor() {
+		this.playersNetwork = new PlayersNetwork(this.PlayersList);
+	}
 
 	Add(socket: socketio.Socket) {
 		NetworkHelper.Send(socket, "Player", { Type: "New", Data: this.PlayersList.GetFullDataOfAllPlayers() });
@@ -16,6 +22,8 @@ class PlayersManager {
 
 		NetworkHelper.Send(socket, "FirstPlayer", { Data: [{ ID: socket.id, Pos: newPlr.Pos, MovV: newPlr.MovingV }] });
 		socket.broadcast.emit("Player", { Type: "New", Data: [{ ID: socket.id, Pos: newPlr.Pos, MovV: newPlr.MovingV }] });
+
+		this.playersNetwork.SetupConnection(socket);
 	}
 
 	Remove(socket: socketio.Socket) {
