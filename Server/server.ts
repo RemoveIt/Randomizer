@@ -1,7 +1,7 @@
 ﻿import express = require("express");
 import socketio = require("socket.io");
 var serveStatic = require("serve-static");
-import PlayersManager = require("./PlayersManager");
+import PlayersManager = require("./playersManager");
 
 class Server {
 
