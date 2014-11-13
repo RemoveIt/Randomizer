@@ -9,7 +9,6 @@
 interface PlayerFullData {
 	ID: string;
 	Pos: IPoint;
-	MovV: IPoint;
 }
 
 /**
@@ -19,7 +18,7 @@ interface PlayerFullData {
 interface MovingData {
 	ID: string;
 	Pos: IPoint;
-	MovV: IPoint;
+	KeyCode: number;
 }
 
 

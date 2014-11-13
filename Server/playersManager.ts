@@ -20,8 +20,8 @@ class PlayersManager {
 		this.PlayersList.Add(socket);
 		var newPlr = this.PlayersList.Get(socket.id);
 
-		NetworkHelper.Send(socket, "FirstPlayer", { Data: [{ ID: socket.id, Pos: newPlr.Pos, MovV: newPlr.MovingV }] });
-		socket.broadcast.emit("Player", { Type: "New", Data: [{ ID: socket.id, Pos: newPlr.Pos, MovV: newPlr.MovingV }] });
+		NetworkHelper.Send(socket, "FirstPlayer", { Data: [{ ID: socket.id, Pos: newPlr.Pos}] });
+		socket.broadcast.emit("Player", { Type: "New", Data: [{ ID: socket.id, Pos: newPlr.Pos }] });
 
 		this.playersNetwork.SetupConnection(socket);
 	}

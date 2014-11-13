@@ -30,7 +30,7 @@ class PlayersList {
 	GetFullDataOfAllPlayers(): PlayerFullData[] {
 		var result = [];
 		for (var i = 0; i < this.List.length; i++) {
-			var tmp = { ID: this.List[i].ID, Pos: this.List[i].Pos, MovV: this.List[i].MovingV };
+			var tmp = { ID: this.List[i].ID, Pos: this.List[i].Pos };
 			result.push(tmp);
 		}
 

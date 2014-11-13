@@ -27,8 +27,8 @@
 				tmpPlr.Sprite.position.x = data.Data[0].Pos.x;
 				tmpPlr.Sprite.position.y = data.Data[0].Pos.y;
 
-				tmpPlr.MovingV.x = data.Data[0].MovV.x
-				tmpPlr.MovingV.y = data.Data[0].MovV.y;
+				//tmpPlr.MovingV.x = data.Data[0].MovV.x
+				//tmpPlr.MovingV.y = data.Data[0].MovV.y;
 			}
 		});
 	}

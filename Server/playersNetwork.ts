@@ -15,7 +15,6 @@ class PlayersNetwork {
 				socket.broadcast.emit("Player", data);
 				var tmpPlr = this.playersList.Get(socket.id);
 				tmpPlr.Pos = data.Data[0].Pos;
-				tmpPlr.MovingV = data.Data[0].MovV;
 			}
 
 		});

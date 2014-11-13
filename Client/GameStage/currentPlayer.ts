@@ -2,6 +2,7 @@
 
 class CurrentPlayer extends Player implements IKeyboardListener {
 	private socket: SocketIOClient.Socket;
+	private lastKeyTime: number = 0;
 
 	constructor(data: PlayerFullData, socket: SocketIOClient.Socket) {
 		super(data);
@@ -10,34 +11,25 @@ class CurrentPlayer extends Player implements IKeyboardListener {
 	}
 
 	OnKeyPress(keyCode: number) {
-		this.CheckKeys();
+		if (Date.now() - this.lastKeyTime < 200) { return; }
+		if (keyCode === 37) {
+			this.Sprite.position.x -= 80;
+		}
+		if (keyCode === 38) {
+			this.Sprite.position.y -= 80;
+		}
+		if (keyCode === 39) {
+			this.Sprite.position.x += 80;
+		}
+		if (keyCode === 40) {
+			this.Sprite.position.y += 80;
+		}
+
+		this.socket.emit("Player", { Type: "Moving", Data: [{ ID: this.ID, Pos: { x: this.Sprite.position.x, y: this.Sprite.position.y }, KeyCode: keyCode }] });
+		this.lastKeyTime = Date.now();
 	}
 
 	OnKeyRelease(keyCode: number) {
-		this.CheckKeys();
-	}
-
-	private CheckKeys() {
-		var tmpV = { x: 0, y: 0 };
-
-		if (KeyboardManager.keys[37]) {
-			tmpV.x -= 1;
-		}
-		if (KeyboardManager.keys[38]) {
-			tmpV.y -= 1;
-		}
-		if (KeyboardManager.keys[39]) {
-			tmpV.x += 1;
-		}
-		if (KeyboardManager.keys[40]) {
-			tmpV.y += 1;
-		}
-
-		this.MovingV = tmpV;
-
-		this.socket.emit("Player", { Type: "Moving", Data: [{ ID: this.ID, Pos: { x: this.Sprite.position.x, y: this.Sprite.position.y }, MovV: this.MovingV }] });
-
-
 	}
 
 }
