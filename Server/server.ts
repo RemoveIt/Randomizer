@@ -19,7 +19,7 @@ class Server {
 	Start() {
 
 		this.expressApp.use(serveStatic("./static", { index: ["index.html"] }));
-		this.http.listen(3000, () => {
+		this.http.listen(80, () => {
 			console.log("listening on *:3000");
 		});
 
