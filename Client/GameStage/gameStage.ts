@@ -5,6 +5,7 @@
 	private socket: SocketIOClient.Socket;
 	private playerManager: PlayersManager;
 	private playersNetwork: PlayersNetwork;
+	private ground = new Ground();
 
 	constructor(socket: SocketIOClient.Socket) {
 		this.socket = socket;
@@ -17,6 +18,7 @@
 	Start(onDone: () => void) {
 		this.playersNetwork.Setup();
 		this.playerManager.ReqForCurrentPlayerData(this.socket, () => {
+			this.PixiStage.addChild(this.ground.Spritebatch);
 			this.PixiStage.addChild(this.playerManager.CurrPlayer.Sprite);
 			onDone();
 		});
