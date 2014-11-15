@@ -2,9 +2,9 @@
 
 	List: Player[] = [];
 	CurrPlayer: CurrentPlayer;
-	private PixiStage: PIXI.Stage;
+	private PixiStage: PIXI.DisplayObjectContainer;
 
-	constructor(stage: PIXI.Stage) {
+	constructor(stage: PIXI.DisplayObjectContainer) {
 		this.PixiStage = stage;
 	}
 

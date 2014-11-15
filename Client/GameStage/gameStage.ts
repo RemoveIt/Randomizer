@@ -13,7 +13,7 @@
 		this.PixiStage.addChild(this.objectContainer);
 
 		this.SpriteBatch = new PIXI.SpriteBatch();
-		this.playerManager = new PlayersManager(this.PixiStage);
+		this.playerManager = new PlayersManager(this.objectContainer);
 		this.playersNetwork = new PlayersNetwork(this.socket, this.playerManager);
 	}
 
