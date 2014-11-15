@@ -6,10 +6,12 @@
 	private playerManager: PlayersManager;
 	private playersNetwork: PlayersNetwork;
 	private ground = new Ground();
-
+	private objectContainer = new PIXI.DisplayObjectContainer();
 	constructor(socket: SocketIOClient.Socket) {
 		this.socket = socket;
 		this.PixiStage = new PIXI.Stage(0);
+		this.PixiStage.addChild(this.objectContainer);
+
 		this.SpriteBatch = new PIXI.SpriteBatch();
 		this.playerManager = new PlayersManager(this.PixiStage);
 		this.playersNetwork = new PlayersNetwork(this.socket, this.playerManager);
@@ -18,13 +20,15 @@
 	Start(onDone: () => void) {
 		this.playersNetwork.Setup();
 		this.playerManager.ReqForCurrentPlayerData(this.socket, () => {
-			this.PixiStage.addChild(this.ground.Spritebatch);
-			this.PixiStage.addChild(this.playerManager.CurrPlayer.Sprite);
+			this.objectContainer.addChild(this.ground.Spritebatch);
+			this.objectContainer.addChild(this.playerManager.CurrPlayer.Sprite);
 			onDone();
 		});
 	}
 
 	Update() {
 		this.playerManager.Update();
+		this.objectContainer.position.x = - this.playerManager.CurrPlayer.Sprite.position.x + 400;
+		this.objectContainer.position.y = - this.playerManager.CurrPlayer.Sprite.position.y + 300;
 	}
 }
