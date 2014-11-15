@@ -18,9 +18,9 @@
 	}
 
 	Start(onDone: () => void) {
+		this.objectContainer.addChild(this.ground.Spritebatch);
 		this.playersNetwork.Setup();
 		this.playerManager.ReqForCurrentPlayerData(this.socket, () => {
-			this.objectContainer.addChild(this.ground.Spritebatch);
 			this.objectContainer.addChild(this.playerManager.CurrPlayer.Sprite);
 			onDone();
 		});
