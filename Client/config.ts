@@ -1,5 +1,5 @@
 ﻿var config = {
-	src: "Champions/MuddyHag/standard/UP.png",
-	groundSrc: "map/map_classic.png"
+	src: "champions/muddy_hug/standard/up.png",
+	groundSrc: "map/map_shadows.png"
 }
  

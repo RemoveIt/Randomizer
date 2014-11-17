@@ -12,10 +12,12 @@
 		this.socket = socket;
 		this.PixiStage = new PIXI.Stage(0);
 		this.PixiStage.addChild(this.objectContainer);
-
 		this.SpriteBatch = new PIXI.SpriteBatch();
 		this.playerManager = new PlayersManager(this.objectContainer);
 		this.playersNetwork = new PlayersNetwork(this.socket, this.playerManager);
+
+		this.objectContainer.position.x = 100;
+		//this.objectContainer.position.y = 100;
 	}
 
 	Start(onDone: () => void) {
@@ -29,7 +31,7 @@
 
 	Update() {
 		this.playerManager.Update();
-		this.objectContainer.position.x = - this.playerManager.CurrPlayer.Sprite.position.x + 400;
-		this.objectContainer.position.y = - this.playerManager.CurrPlayer.Sprite.position.y + 300;
+		//this.objectContainer.position.x = - this.playerManager.CurrPlayer.Sprite.position.x + 400;
+		//this.objectContainer.position.y = - this.playerManager.CurrPlayer.Sprite.position.y + 300;
 	}
 }
