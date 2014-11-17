@@ -1,6 +1,7 @@
 ﻿class Ground {
-	Spritebatch = new PIXI.SpriteBatch();
+	Sprite: PIXI.Sprite;
 
 	constructor() {
+		this.Sprite = PIXI.Sprite.fromImage(config.groundSrc);
 	}
 }

@@ -7,6 +7,7 @@
 	private playersNetwork: PlayersNetwork;
 	private ground = new Ground();
 	private objectContainer = new PIXI.DisplayObjectContainer();
+
 	constructor(socket: SocketIOClient.Socket) {
 		this.socket = socket;
 		this.PixiStage = new PIXI.Stage(0);
@@ -18,7 +19,7 @@
 	}
 
 	Start(onDone: () => void) {
-		this.objectContainer.addChild(this.ground.Spritebatch);
+		this.objectContainer.addChild(this.ground.Sprite);
 		this.playersNetwork.Setup();
 		this.playerManager.ReqForCurrentPlayerData(this.socket, () => {
 			this.objectContainer.addChild(this.playerManager.CurrPlayer.Sprite);

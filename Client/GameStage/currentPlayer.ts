@@ -13,16 +13,16 @@ class CurrentPlayer extends Player implements IKeyboardListener {
 	OnKeyPress(keyCode: number) {
 		if (Date.now() - this.lastKeyTime < 200) { return; }
 		if (keyCode === 37) {
-			this.Sprite.position.x -= 80;
+			this.Sprite.position.x -= 100;
 		}
 		if (keyCode === 38) {
-			this.Sprite.position.y -= 80;
+			this.Sprite.position.y -= 100;
 		}
 		if (keyCode === 39) {
-			this.Sprite.position.x += 80;
+			this.Sprite.position.x += 100;
 		}
 		if (keyCode === 40) {
-			this.Sprite.position.y += 80;
+			this.Sprite.position.y += 100;
 		}
 
 		this.socket.emit("Player", { Type: "Moving", Data: [{ ID: this.ID, Pos: { x: this.Sprite.position.x, y: this.Sprite.position.y }, KeyCode: keyCode }] });
