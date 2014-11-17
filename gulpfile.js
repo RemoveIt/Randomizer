@@ -26,7 +26,7 @@ gulp.task("build-client", function () {
         .pipe(concat("script.js"))
         .pipe(gulp.dest("./out/static"));
 
-	gulp.src(["./Client/**/*.css", "./Client/**/*.html", "./Client/3rd/*.*", "Resources/Ready/**/*.*"])
+	gulp.src(["./Client/**/*.css", "./Client/**/*.html", "./Client/3rd/*.*", "./Resources/ready/**/*.*"])
         .pipe(gulp.dest("./out/static"));
 
 
