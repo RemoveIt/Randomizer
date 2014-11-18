@@ -8,6 +8,7 @@
  */
 interface PlayerFullData {
 	ID: string;
+	Rot: number;
 	Pos: IPoint;
 }
 
@@ -18,7 +19,7 @@ interface PlayerFullData {
 interface MovingData {
 	ID: string;
 	Pos: IPoint;
-	KeyCode: number;
+	Rot: Rotation;
 }
 
 

@@ -6,7 +6,7 @@
 
 	constructor(canvas: HTMLCanvasElement) {
 		this.Socket = io.connect(window.location.href);
-		this.Renderer = PIXI.autoDetectRenderer(1200, 1000, {
+		this.Renderer = PIXI.autoDetectRenderer(1000, 800, {
 			view: canvas,
 			antialiasing: false,
 			transparent: false,

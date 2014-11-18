@@ -24,8 +24,7 @@
 			if (data.Type === "Moving") {
 				console.log("moving");
 				var tmpPlr = this.playersManager.Get(data.Data[0].ID);
-				tmpPlr.Sprite.position.x = data.Data[0].Pos.x;
-				tmpPlr.Sprite.position.y = data.Data[0].Pos.y;
+				tmpPlr.Move(data.Data[0]);
 			}
 		});
 	}

@@ -1,8 +1,6 @@
 ﻿#GameCanvas {
     position: absolute;
-    top: 50%;
     left: 50%;
-    
-    margin-left: -600px;
-    margin-top: -500px;
+    margin-left: -500px;
+   
 }

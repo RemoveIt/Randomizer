@@ -16,8 +16,8 @@
 		this.playerManager = new PlayersManager(this.objectContainer);
 		this.playersNetwork = new PlayersNetwork(this.socket, this.playerManager);
 
-		this.objectContainer.position.x = 100;
-		//this.objectContainer.position.y = 100;
+		this.objectContainer.position.x = 50;
+		this.objectContainer.position.y = 50;
 	}
 
 	Start(onDone: () => void) {
