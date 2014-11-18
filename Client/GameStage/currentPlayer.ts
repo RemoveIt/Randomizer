@@ -26,6 +26,10 @@ class CurrentPlayer implements IKeyboardListener {
 			this.player.PixiContainer.position.y += 70;
 		}
 
+		if (keyCode === 81) {
+			this.player.UseAbility("Q");
+		}
+
 		this.player.Rotate(keyCode - 37);
 		this.socket.emit("Player", {
 			Type: "Moving", Data: [{

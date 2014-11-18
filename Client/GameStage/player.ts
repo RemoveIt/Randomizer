@@ -24,6 +24,10 @@ class Player {
 		this.Rotation = Rot;
 		this.PixiContainer.rotation = Rot * Math.PI/2;
 	}
+
+	UseAbility(abilityLetter: string) {
+
+	}
 	
 	Update() {
 
