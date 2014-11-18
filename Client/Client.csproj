@@ -29,6 +29,7 @@
       <Link>Interchange\playerData.ts</Link>
     </TypeScriptCompile>
     <TypeScriptCompile Include="config.ts" />
+    <TypeScriptCompile Include="GameStage\Champions\muddyHag.ts" />
     <TypeScriptCompile Include="GameStage\currentPlayer.ts" />
     <TypeScriptCompile Include="game.ts" />
     <TypeScriptCompile Include="GameStage\gameStage.ts" />
