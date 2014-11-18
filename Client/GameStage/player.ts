@@ -22,7 +22,7 @@ class Player {
 
 	Rotate(Rot: Rotation) {
 		this.Rotation = Rot;
-		this.PixiContainer.rotation = Rot * Math.PI/2;
+		this.PixiContainer.rotation = (Rot -1) * Math.PI/2;
 	}
 
 	UseAbility(abilityLetter: string) {

@@ -2,7 +2,7 @@
 	Players: [
 		{
 			Name: "Muddy Hag",
-			Picture: "champions/muddy_hag/standard/left.png",
+			Picture: "champions/muddy_hag/stand.png",
 			Skills: {
 				Q: {
 					Anim: {
