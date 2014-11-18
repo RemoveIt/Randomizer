@@ -8,7 +8,7 @@
 		this.PixiStage = stage;
 	}
 
-	Add(data:PlayerFullData) {
+	Add(data: PlayerFullData) {
 		var newPlr = new Player(data);
 		this.List.push(newPlr);
 		this.PixiStage.addChild(newPlr.Sprite);
@@ -41,8 +41,9 @@
 
 	ReqForCurrentPlayerData(socket: SocketIOClient.Socket, onDone: () => void) {
 		socket.on("FirstPlayer", (data: ServerResponse) => {
-			this.CurrPlayer = new CurrentPlayer(data.Data[0],socket);
-			this.List.push(this.CurrPlayer);
+			this.CurrPlayer = new CurrentPlayer(new Player(data.Data[0]), socket);
+			this.List.push(this.CurrPlayer.player);
+			this.PixiStage.addChild(this.CurrPlayer.player.Sprite);
 			onDone();
 		});
 	}

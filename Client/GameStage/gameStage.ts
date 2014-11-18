@@ -24,7 +24,6 @@
 		this.objectContainer.addChild(this.ground.Sprite);
 		this.playersNetwork.Setup();
 		this.playerManager.ReqForCurrentPlayerData(this.socket, () => {
-			this.objectContainer.addChild(this.playerManager.CurrPlayer.Sprite);
 			onDone();
 		});
 	}
