@@ -1,34 +1,37 @@
 ﻿class MuddyHag extends Player {
 
 	private standSpr: PIXI.Sprite;
-	private teleportAnim: PIXI.MovieClip;
+	private teleportInAnim: PIXI.MovieClip;
+	private teleportOutAnim: PIXI.MovieClip;
 
 	constructor(data: PlayerFullData) {
 		super(data);
 		this.standSpr = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Picture);
 		this.PixiContainer.addChild(this.standSpr);
 		var textures: PIXI.Texture[] = [];
-		for (var i = 0; i < config.Players[0].Skills.Q.Anim.Files.length; i++) {
-			var src = config.Players[0].Skills.Q.Anim.Path + config.Players[0].Skills.Q.Anim.Files[i];
-			textures.push(PIXI.Texture.fromImage(src));
-		}
 
-		this.teleportAnim = new PIXI.MovieClip(textures);
-		this.teleportAnim.visible = false;
-		this.teleportAnim.animationSpeed = 0.5;
-		this.PixiContainer.addChild(this.teleportAnim);
+		this.teleportInAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn);
+		this.teleportInAnim.visible = false;
+		this.teleportInAnim.animationSpeed = 0.5;
+		this.teleportInAnim.loop = false;
+		this.PixiContainer.addChild(this.teleportInAnim);
+
+		this.teleportOutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut);
+		this.teleportOutAnim.visible = false;
+		this.teleportOutAnim.animationSpeed = 0.5;
+		this.teleportOutAnim.loop = false;
+		this.PixiContainer.addChild(this.teleportOutAnim);
 	}
 
 	UseAbility(keyLetter: string) {
 		if (keyLetter === 'Q') {
 			this.standSpr.visible = false;
-			this.teleportAnim.visible = true;
-			this.teleportAnim.loop = false;
-			this.teleportAnim.onComplete = () => {
+			this.teleportInAnim.visible = true;
+			this.teleportInAnim.onComplete = () => {
+				this.teleportInAnim.visible = false;
 				this.standSpr.visible = true;
-				this.teleportAnim.visible = false;
 			}
-			this.teleportAnim.gotoAndPlay(0);
+			this.teleportInAnim.gotoAndPlay(0);
 		}
 	}
 }
