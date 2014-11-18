@@ -30,3 +30,5 @@ interface MovingData {
 interface ReferenceData {
 	ID: string;
 }
+
+enum Champions { MuddyHag }

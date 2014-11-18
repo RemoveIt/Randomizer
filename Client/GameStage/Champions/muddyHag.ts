@@ -5,7 +5,7 @@
 
 	constructor(data: PlayerFullData) {
 		super(data);
-		this.standSpr = PIXI.Sprite.fromImage(config.Players[0].Picture);
+		this.standSpr = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Picture);
 		this.PixiContainer.addChild(this.standSpr);
 		var textures: PIXI.Texture[] = [];
 		for (var i = 0; i < config.Players[0].Skills.Q.Anim.Files.length; i++) {
@@ -23,7 +23,12 @@
 		if (keyLetter === 'Q') {
 			this.standSpr.visible = false;
 			this.teleportAnim.visible = true;
-			this.teleportAnim.play();
+			this.teleportAnim.loop = false;
+			this.teleportAnim.onComplete = () => {
+				this.standSpr.visible = true;
+				this.teleportAnim.visible = false;
+			}
+			this.teleportAnim.gotoAndPlay(0);
 		}
 	}
 }
