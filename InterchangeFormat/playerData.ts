@@ -1,5 +1,4 @@
-// Server response types for Player namestring
-// New
+enum Champions { MuddyHag }
 
 /**
  * On player spawn or on sending info about existing players on map
@@ -31,4 +30,11 @@ interface ReferenceData {
 	ID: string;
 }
 
-enum Champions { MuddyHag }
+/**
+ * On object remove
+ * Namestring: Player Type: Remove
+ */
+interface AbilityData {
+	ID: string;
+	Key: string;
+}

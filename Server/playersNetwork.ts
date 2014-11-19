@@ -17,6 +17,11 @@ class PlayersNetwork {
 				tmpPlr.Pos = data.Data[0].Pos;
 			}
 
+			if (data.Type === "Ability") {
+				socket.broadcast.emit("Player", data);
+				console.log(JSON.stringify(data));
+			}
+
 		});
 	}
 

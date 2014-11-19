@@ -10,7 +10,6 @@
 	Setup() {
 		this.socket.on("Player", (data: ServerResponse) => {
 			if (data.Type === "New") {
-				console.log("New Player: " + data.Data.length);
 				for (var i = 0; i < data.Data.length; i++) {
 					this.playersManager.Add(data.Data[i]);
 				}
@@ -22,9 +21,14 @@
 			}
 
 			if (data.Type === "Moving") {
-				console.log("moving");
 				var tmpPlr = this.playersManager.Get(data.Data[0].ID);
 				tmpPlr.Move(data.Data[0]);
+			}
+
+			if (data.Type === "Ability") {
+				var tmpPlr = this.playersManager.Get(data.Data[0].ID);
+				console.log(JSON.stringify(data));
+				tmpPlr.UseAbility(data.Data[0].Key);
 			}
 		});
 	}
