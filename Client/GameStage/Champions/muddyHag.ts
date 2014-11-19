@@ -23,7 +23,7 @@
 		if (keyLetter === 'Q') {
 			this.standSpr.visible = false;
 			this.teleportInAnim.visible = true;
-			this.teleportInAnim.gotoAndPlay(0);
+			this.teleportInAnim.play();
 
 			this.teleportInAnim.onComplete = () => {
 				this.teleportInAnim.visible = false;
@@ -33,8 +33,7 @@
 				this.teleportOutAnim.gotoAndPlay(0);
 				this.teleportOutAnim.onComplete = () => {
 					this.teleportOutAnim.visible = false;
-					this.standSpr.visible = true;
-					this.PixiContainer.position.x += 70;
+					setTimeout(() => { this.standSpr.visible = true; }, 0);
 				}
 			}
 		}
