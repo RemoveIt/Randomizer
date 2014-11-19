@@ -10,16 +10,12 @@
 		this.PixiContainer.addChild(this.standSpr);
 		var textures: PIXI.Texture[] = [];
 
-		this.teleportInAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn);
+		this.teleportInAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn, 0.5, false);
 		this.teleportInAnim.visible = false;
-		this.teleportInAnim.animationSpeed = 0.5;
-		this.teleportInAnim.loop = false;
 		this.PixiContainer.addChild(this.teleportInAnim);
 
-		this.teleportOutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut);
+		this.teleportOutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut, 0.5, false);
 		this.teleportOutAnim.visible = false;
-		this.teleportOutAnim.animationSpeed = 0.5;
-		this.teleportOutAnim.loop = false;
 		this.PixiContainer.addChild(this.teleportOutAnim);
 	}
 
@@ -27,11 +23,20 @@
 		if (keyLetter === 'Q') {
 			this.standSpr.visible = false;
 			this.teleportInAnim.visible = true;
+			this.teleportInAnim.gotoAndPlay(0);
+
 			this.teleportInAnim.onComplete = () => {
 				this.teleportInAnim.visible = false;
-				this.standSpr.visible = true;
+
+				this.PixiContainer.position.x += 140;
+				this.teleportOutAnim.visible = true;
+				this.teleportOutAnim.gotoAndPlay(0);
+				this.teleportOutAnim.onComplete = () => {
+					this.teleportOutAnim.visible = false;
+					this.standSpr.visible = true;
+					this.PixiContainer.position.x += 70;
+				}
 			}
-			this.teleportInAnim.gotoAndPlay(0);
 		}
 	}
 }
