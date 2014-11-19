@@ -6,7 +6,7 @@
 
 			Anim: {
 				TeleportIn: {
-					Path: "champions/muddy_hag/teleport_in/", FrameCount: 10
+					Path: "champions/muddy_hag/teleport_in/", FrameCount: 9
 				},
 				TeleportOut: {
 					Path: "champions/muddy_hag/teleport_out/", FrameCount: 7

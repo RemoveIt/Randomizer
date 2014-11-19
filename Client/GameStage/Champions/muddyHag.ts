@@ -10,11 +10,11 @@
 		this.PixiContainer.addChild(this.standSpr);
 		var textures: PIXI.Texture[] = [];
 
-		this.teleportInAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn, 0.2, false);
+		this.teleportInAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn, 0.3, false);
 		this.teleportInAnim.visible = false;
 		this.PixiContainer.addChild(this.teleportInAnim);
 
-		this.teleportOutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut, 0.2, false);
+		this.teleportOutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut, 0.3, false);
 		this.teleportOutAnim.visible = false;
 		this.PixiContainer.addChild(this.teleportOutAnim);
 	}
@@ -26,9 +26,8 @@
 			this.teleportInAnim.gotoAndPlay(0);
 
 			this.teleportInAnim.onComplete = () => {
-				
+				this.PixiContainer.x += 140;
 				this.teleportInAnim.visible = false;
-				this.PixiContainer.position.x += 140;
 				this.teleportOutAnim.visible = true;
 				this.teleportOutAnim.gotoAndPlay(0);
 				this.teleportOutAnim.onComplete = () => {
