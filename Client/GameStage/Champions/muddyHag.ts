@@ -7,14 +7,14 @@
 	constructor(data: PlayerFullData) {
 		super(data);
 		this.standSpr = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Picture);
-		this.PixiContainer.addChild(this.standSpr);
-		var textures: PIXI.Texture[] = [];
+		this.standSpr.position = new PIXI.Point(-(config.Players[0].PicSize.width - 70) / 2, -(config.Players[0].PicSize.height - 70) / 2);
 
-		this.teleportInAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn, 0.3, false);
+		this.PixiContainer.addChild(this.standSpr);
+		this.teleportInAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn, 0.4, false);
 		this.teleportInAnim.visible = false;
 		this.PixiContainer.addChild(this.teleportInAnim);
 
-		this.teleportOutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut, 0.3, false);
+		this.teleportOutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut, 0.4, false);
 		this.teleportOutAnim.visible = false;
 		this.PixiContainer.addChild(this.teleportOutAnim);
 	}
