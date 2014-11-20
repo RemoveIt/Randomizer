@@ -11,20 +11,20 @@
 			if (KeyboardManager.keys[keyEvent.keyCode]) return;
 			KeyboardManager.keys[keyEvent.keyCode] = true;
 			for (var i = 0; i < KeyboardManager.listenerList.length; i++) {
-				KeyboardManager.listenerList[i].OnKeyPress(keyEvent.keyCode);
+				KeyboardManager.listenerList[i].OnKeyPress(keyEvent);
 			}
 		});
 
 		addEventListener("keyup", (keyEvent) => {
 			KeyboardManager.keys[keyEvent.keyCode] = false;
 			for (var i = 0; i < KeyboardManager.listenerList.length; i++) {
-				KeyboardManager.listenerList[i].OnKeyRelease(keyEvent.keyCode);
+				KeyboardManager.listenerList[i].OnKeyRelease(keyEvent);
 			}
 		});
 	}
 }
 
 interface IKeyboardListener {
-	OnKeyPress(keyCode: number);
-	OnKeyRelease(keyCode: number);
+	OnKeyPress(evt: KeyboardEvent);
+	OnKeyRelease(evt: KeyboardEvent);
 }

@@ -3,6 +3,7 @@
  */
 class Player {
 	ID: string;
+	Busy = false;
 	PixiContainer = new PIXI.DisplayObjectContainer();
 	Rotation = Rotation.Up;
 

@@ -11,14 +11,15 @@ class CurrentPlayer implements IKeyboardListener {
 		this.socket = socket;
 	}
 
-	OnKeyPress(keyCode: number) {
+	OnKeyPress(evt: KeyboardEvent) {
 		if (Date.now() - this.lastKeyTime < 200) { return; }
+		if (this.player.Busy) { return; }
 
-		if (keyCode >= 37 && keyCode <= 40) {
-			this.checkArrowKeys(keyCode);
+		if (evt.keyCode >= 37 && evt.keyCode <= 40) {
+			this.checkArrowKeys(evt.keyCode, evt.ctrlKey);
 		}
 
-		if (keyCode === 81) {
+		if (evt.keyCode === 81) {
 			this.socket.emit("Player", {
 				Type: "Ability", Data: [{ ID: this.player.ID, Key: "Q" }]
 			});
@@ -28,18 +29,20 @@ class CurrentPlayer implements IKeyboardListener {
 		this.lastKeyTime = Date.now();
 	}
 
-	private checkArrowKeys(keyCode: number) {
-		if (keyCode === 37) {
-			this.player.PixiContainer.position.x -= 70;
-		}
-		if (keyCode === 38) {
-			this.player.PixiContainer.position.y -= 70;
-		}
-		if (keyCode === 39) {
-			this.player.PixiContainer.position.x += 70;
-		}
-		if (keyCode === 40) {
-			this.player.PixiContainer.position.y += 70;
+	private checkArrowKeys(keyCode: number, ctrl: boolean) {
+		if (ctrl) {
+			if (keyCode === 37) {
+				this.player.PixiContainer.position.x -= 70;
+			}
+			if (keyCode === 38) {
+				this.player.PixiContainer.position.y -= 70;
+			}
+			if (keyCode === 39) {
+				this.player.PixiContainer.position.x += 70;
+			}
+			if (keyCode === 40) {
+				this.player.PixiContainer.position.y += 70;
+			}
 		}
 
 		this.player.Rotate(keyCode - 37);
@@ -54,7 +57,7 @@ class CurrentPlayer implements IKeyboardListener {
 
 
 
-	OnKeyRelease(keyCode: number) {
+	OnKeyRelease(evt: KeyboardEvent) {
 	}
 
 }
