@@ -7,8 +7,8 @@
 
 	constructor(data: PlayerFullData) {
 		super(data);
-		this.standSpr = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Picture);
-		this.standSpr.position = new PIXI.Point(-(config.Players[0].PicSize.width - 70) / 2, -(config.Players[0].PicSize.height - 70) / 2);
+		this.standSpr = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Pic.Src);
+		this.standSpr.position = new PIXI.Point(-(config.Players[0].Pic.Width - 70) / 2, -(config.Players[0].Pic.Height - 70) / 2);
 
 		this.PixiContainer.addChild(this.standSpr);
 		var AnimationSpeed = 0.8;
