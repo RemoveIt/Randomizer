@@ -37,5 +37,5 @@ interface ReferenceData {
 interface AbilityData {
 	ID: string;
 	Key: string;
-	AddInfo: any;
+	AddInfo?: any;
 }

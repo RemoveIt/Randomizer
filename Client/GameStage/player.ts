@@ -28,7 +28,11 @@ class Player {
 		this.PixiContainer.rotation = (Rot -1) * Math.PI/2;
 	}
 
-	AbilityKeyPress(keyLetter: string, onDone?: () => void) {
+	AbilityKeyPress(keyLetter: string, onDone?: (Abidata: AbilityData) => void) {
+
+	}
+
+	PerformAbility(abidata: AbilityData) {
 
 	}
 	

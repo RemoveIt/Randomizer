@@ -23,9 +23,10 @@ class CurrentPlayer implements IKeyboardListener {
 		if (this.player.Busy) { return; }
 		if (evt.keyCode === 81 || evt.keyCode === 87 || evt.keyCode === 65 || evt.keyCode === 83) {
 
-			this.player.AbilityKeyPress(String.fromCharCode(evt.keyCode).toUpperCase(), () => {
+			this.player.AbilityKeyPress(String.fromCharCode(evt.keyCode).toUpperCase(), (Abidata: AbilityData) => {
+				console.log(Abidata);
 				this.socket.emit("Player", {
-					Type: "Ability", Data: [{ ID: this.player.ID, Key: String.fromCharCode(evt.keyCode).toUpperCase() }]
+					Type: "Ability", Data: [Abidata]
 				});
 			});
 		}

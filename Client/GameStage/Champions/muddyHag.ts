@@ -21,11 +21,46 @@
 		this.PixiContainer.addChild(this.teleportOutAnim);
 	}
 
+
+	PerformAbility(Abidata: AbilityData) {
+		this.Busy = true;
+		this.standSpr.visible = false;
+		this.teleportInAnim.visible = true;
+		this.teleportInAnim.gotoAndPlay(0);
+		
+		this.teleportInAnim.onComplete = () => {
+			if (Abidata.Key === "Q") {
+				this.PixiContainer.x += -70 * Abidata.AddInfo;
+				this.PixiContainer.y += -70 * Abidata.AddInfo;
+			}
+			if (Abidata.Key === "W") {
+				this.PixiContainer.x += 70 * Abidata.AddInfo;
+				this.PixiContainer.y += -70 * Abidata.AddInfo;
+			}
+			if (Abidata.Key === "A") {
+				this.PixiContainer.x += -70 * Abidata.AddInfo;
+				this.PixiContainer.y += 70 * Abidata.AddInfo;
+			}
+			if (Abidata.Key === "S") {
+				this.PixiContainer.x += 70 * Abidata.AddInfo;
+				this.PixiContainer.y += 70 * Abidata.AddInfo;
+			}
+
+			this.teleportInAnim.visible = false;
+			this.teleportOutAnim.visible = true;
+			this.teleportOutAnim.gotoAndPlay(0);
+			this.teleportOutAnim.onComplete = () => {
+				setTimeout(() => { this.standSpr.visible = true; this.teleportOutAnim.visible = false; }, 0);
+				this.Busy = false;
+			}
+		}
+	}
+
 	private teleAbiKeyPressCount = 0;
 	private teleAbiLastKey = "";
 	private teleAbiTimeoutHandle = 0;
 
-	AbilityKeyPress(keyLetter: string, onDone?: () => void) {
+	AbilityKeyPress(keyLetter: string, onDone: (Abidata: AbilityData) => void) {
 		if (keyLetter.search(/[QWAS]/) !== -1) {
 
 			if (this.teleAbiLastKey == "") {
@@ -37,54 +72,20 @@
 			}
 
 			if (this.teleAbiKeyPressCount < 4) {
-				this.teleport(onDone);
+				clearTimeout(this.teleAbiTimeoutHandle);
+				this.teleAbiTimeoutHandle = setTimeout(() => {
+					var abiData = { ID: this.ID, Key: this.teleAbiLastKey, AddInfo: this.teleAbiKeyPressCount };
+
+					onDone(abiData);
+					this.PerformAbility(abiData);
+
+					this.teleAbiKeyPressCount = 0;
+					this.teleAbiTimeoutHandle = 0;
+					this.teleAbiLastKey = "";
+				}, 200);
 			}
 		}
 	}
 
 
-	private teleport(onDone?: () => void) {
-		clearTimeout(this.teleAbiTimeoutHandle);
-		this.teleAbiTimeoutHandle = setTimeout(() => {
-			if (onDone) {
-				onDone();
-			}
-			this.Busy = true;
-			this.standSpr.visible = false;
-			this.teleportInAnim.visible = true;
-			this.teleportInAnim.gotoAndPlay(0);
-
-			this.teleportInAnim.onComplete = () => {
-				if (this.teleAbiLastKey === "Q") {
-					this.PixiContainer.x += -70 * this.teleAbiKeyPressCount;
-					this.PixiContainer.y += -70 * this.teleAbiKeyPressCount;
-				}
-				if (this.teleAbiLastKey === "W") {
-					this.PixiContainer.x += 70 * this.teleAbiKeyPressCount;
-					this.PixiContainer.y += -70 * this.teleAbiKeyPressCount;
-				}
-				if (this.teleAbiLastKey === "A") {
-					this.PixiContainer.x += -70 * this.teleAbiKeyPressCount;
-					this.PixiContainer.y += 70 * this.teleAbiKeyPressCount;
-				}
-				if (this.teleAbiLastKey === "S") {
-					this.PixiContainer.x += 70 * this.teleAbiKeyPressCount;
-					this.PixiContainer.y += 70 * this.teleAbiKeyPressCount;
-				}
-
-				this.teleportInAnim.visible = false;
-				this.teleportOutAnim.visible = true;
-				this.teleportOutAnim.gotoAndPlay(0);
-				this.teleportOutAnim.onComplete = () => {
-					setTimeout(() => { this.standSpr.visible = true; this.teleportOutAnim.visible = false; }, 0);
-					this.Busy = false;
-
-					this.teleAbiKeyPressCount = 0;
-					this.teleAbiTimeoutHandle = 0;
-					this.teleAbiLastKey = "";
-
-				}
-			}
-		}, 200);
-	}
 }
