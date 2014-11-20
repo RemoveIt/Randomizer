@@ -23,6 +23,7 @@
 
 	UseAbility(keyLetter: string) {
 		if (keyLetter.search(/[QWAS]/) !== -1) {
+			this.Busy = true;
 			var vec = new PIXI.Point(0, 0);
 			if (keyLetter === "Q") {
 				vec.x = -70;
@@ -54,6 +55,7 @@
 				this.teleportOutAnim.gotoAndPlay(0);
 				this.teleportOutAnim.onComplete = () => {
 					setTimeout(() => { this.standSpr.visible = true; this.teleportOutAnim.visible = false; }, 0);
+					this.Busy = false;
 				}
 			}
 		}
