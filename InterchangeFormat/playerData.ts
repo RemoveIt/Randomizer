@@ -12,7 +12,7 @@ interface PlayerFullData {
 }
 
 /**
- * On object start or stop moving
+ * On player start or stop moving
  * Namestring: Player Type: Moving
  */
 interface MovingData {
@@ -23,7 +23,7 @@ interface MovingData {
 
 
 /**
- * On object remove
+ * On player remove
  * Namestring: Player Type: Remove
  */
 interface ReferenceData {
@@ -31,10 +31,11 @@ interface ReferenceData {
 }
 
 /**
- * On object remove
- * Namestring: Player Type: Remove
+ * On player use an ability
+ * Namestring: Player Type: Ability
  */
 interface AbilityData {
 	ID: string;
 	Key: string;
+	AddInfo: any;
 }

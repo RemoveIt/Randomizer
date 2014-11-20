@@ -12,8 +12,6 @@ class CurrentPlayer implements IKeyboardListener {
 	}
 
 	OnKeyPress(evt: KeyboardEvent) {
-		if (this.player.Busy) { return; }
-
 		if (evt.keyCode >= 37 && evt.keyCode <= 40) {
 			if (evt.keyCode - 37 !== this.player.Rotation) {
 				this.player.Rotate(evt.keyCode - 37);
@@ -21,19 +19,21 @@ class CurrentPlayer implements IKeyboardListener {
 				return;
 			}
 		}
-		
-		if (Date.now() - this.lastKeyTime < 200) { return; }
+
+		if (this.player.Busy) { return; }
+		if (evt.keyCode === 81 || evt.keyCode === 87 || evt.keyCode === 65 || evt.keyCode === 83) {
+
+			this.player.AbilityKeyPress(String.fromCharCode(evt.keyCode).toUpperCase(), () => {
+				this.socket.emit("Player", {
+					Type: "Ability", Data: [{ ID: this.player.ID, Key: String.fromCharCode(evt.keyCode).toUpperCase() }]
+				});
+			});
+		}
+
+		if (Date.now() - this.lastKeyTime < this.player.MoveCooldown) { return; }
 
 		if (evt.keyCode === 17) {
 			this.Move();
-		}
-
-		if (evt.keyCode === 81 || evt.keyCode === 87 || evt.keyCode === 65 || evt.keyCode === 83) {
-			
-			this.socket.emit("Player", {
-				Type: "Ability", Data: [{ ID: this.player.ID, Key: String.fromCharCode(evt.keyCode).toUpperCase() }]
-			});
-			this.player.UseAbility(String.fromCharCode(evt.keyCode).toUpperCase());
 		}
 
 		this.lastKeyTime = Date.now();

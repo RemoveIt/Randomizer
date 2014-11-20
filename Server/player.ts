@@ -9,8 +9,6 @@ class Player {
 		this.ID = socket.id;
 		this.Socket = socket;
 		this.Pos = { x: ((Math.random() * 5) | 0) * 70 + 35, y: ((Math.random() * 5) | 0) * 70 + 35 };
-		console.log(this.Pos.x + " " + this.Pos.y);
-
 	}
 
 	Move(movingData: MovingData) {

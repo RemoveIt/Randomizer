@@ -28,7 +28,7 @@
 			if (data.Type === "Ability") {
 				var tmpPlr = this.playersManager.Get(data.Data[0].ID);
 				console.log(JSON.stringify(data));
-				tmpPlr.UseAbility(data.Data[0].Key);
+				tmpPlr.AbilityKeyPress(data.Data[0].Key);
 			}
 		});
 	}

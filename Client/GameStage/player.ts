@@ -6,6 +6,8 @@ class Player {
 	Busy = false;
 	PixiContainer = new PIXI.DisplayObjectContainer();
 	Rotation = Rotation.Up;
+	ChampionName = "None";
+	MoveCooldown = 200;
 
 	constructor(data: PlayerFullData) {
 		this.ID = data.ID;
@@ -26,7 +28,7 @@ class Player {
 		this.PixiContainer.rotation = (Rot -1) * Math.PI/2;
 	}
 
-	UseAbility(abilityLetter: string) {
+	AbilityKeyPress(keyLetter: string, onDone?: () => void) {
 
 	}
 	

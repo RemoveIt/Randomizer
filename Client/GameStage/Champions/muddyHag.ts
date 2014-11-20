@@ -1,6 +1,6 @@
 ﻿class MuddyHag extends Player {
 
-
+	ChampionName = "Muddy Hag";
 	private standSpr: PIXI.Sprite;
 	private teleportInAnim: PIXI.MovieClip;
 	private teleportOutAnim: PIXI.MovieClip;
@@ -21,43 +21,70 @@
 		this.PixiContainer.addChild(this.teleportOutAnim);
 	}
 
-	UseAbility(keyLetter: string) {
+	private teleAbiKeyPressCount = 0;
+	private teleAbiLastKey = "";
+	private teleAbiTimeoutHandle = 0;
+
+	AbilityKeyPress(keyLetter: string, onDone?: () => void) {
 		if (keyLetter.search(/[QWAS]/) !== -1) {
+
+			if (this.teleAbiLastKey == "") {
+				this.teleAbiLastKey = keyLetter;
+			}
+
+			if (this.teleAbiLastKey === keyLetter) {
+				this.teleAbiKeyPressCount++;
+			}
+
+			if (this.teleAbiKeyPressCount < 4) {
+				this.teleport(onDone);
+			}
+		}
+	}
+
+
+	private teleport(onDone?: () => void) {
+		clearTimeout(this.teleAbiTimeoutHandle);
+		this.teleAbiTimeoutHandle = setTimeout(() => {
+			if (onDone) {
+				onDone();
+			}
 			this.Busy = true;
-			var vec = new PIXI.Point(0, 0);
-			if (keyLetter === "Q") {
-				vec.x = -70;
-				vec.y = -70;
-			}
-			if (keyLetter === "W") {
-				vec.x = 70;
-				vec.y = -70;
-			}
-			if (keyLetter === "A") {
-				vec.x = -70;
-				vec.y = 70;
-			}
-			if (keyLetter === "S") {
-				vec.x = 70;
-				vec.y = 70;
-			}
-
-
 			this.standSpr.visible = false;
 			this.teleportInAnim.visible = true;
 			this.teleportInAnim.gotoAndPlay(0);
 
 			this.teleportInAnim.onComplete = () => {
-				this.PixiContainer.x += vec.x;
-				this.PixiContainer.y += vec.y;
+				if (this.teleAbiLastKey === "Q") {
+					this.PixiContainer.x += -70 * this.teleAbiKeyPressCount;
+					this.PixiContainer.y += -70 * this.teleAbiKeyPressCount;
+				}
+				if (this.teleAbiLastKey === "W") {
+					this.PixiContainer.x += 70 * this.teleAbiKeyPressCount;
+					this.PixiContainer.y += -70 * this.teleAbiKeyPressCount;
+				}
+				if (this.teleAbiLastKey === "A") {
+					this.PixiContainer.x += -70 * this.teleAbiKeyPressCount;
+					this.PixiContainer.y += 70 * this.teleAbiKeyPressCount;
+				}
+				if (this.teleAbiLastKey === "S") {
+					this.PixiContainer.x += 70 * this.teleAbiKeyPressCount;
+					this.PixiContainer.y += 70 * this.teleAbiKeyPressCount;
+				}
+
 				this.teleportInAnim.visible = false;
 				this.teleportOutAnim.visible = true;
 				this.teleportOutAnim.gotoAndPlay(0);
 				this.teleportOutAnim.onComplete = () => {
 					setTimeout(() => { this.standSpr.visible = true; this.teleportOutAnim.visible = false; }, 0);
 					this.Busy = false;
+
+					this.teleAbiKeyPressCount = 0;
+					this.teleAbiTimeoutHandle = 0;
+					this.teleAbiLastKey = "";
+
 				}
 			}
-		}
+		}, 200);
 	}
 }
