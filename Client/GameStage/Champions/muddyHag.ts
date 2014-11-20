@@ -1,5 +1,5 @@
 ﻿class MuddyHag extends Player {
-	
+
 
 	private standSpr: PIXI.Sprite;
 	private teleportInAnim: PIXI.MovieClip;
@@ -22,13 +22,33 @@
 	}
 
 	UseAbility(keyLetter: string) {
-		if (keyLetter === 'Q') {
+		if (keyLetter.search(/[QWAS]/) !== -1) {
+			var vec = new PIXI.Point(0, 0);
+			if (keyLetter === "Q") {
+				vec.x = -70;
+				vec.y = -70;
+			}
+			if (keyLetter === "W") {
+				vec.x = 70;
+				vec.y = -70;
+			}
+			if (keyLetter === "A") {
+				vec.x = -70;
+				vec.y = 70;
+			}
+			if (keyLetter === "S") {
+				vec.x = 70;
+				vec.y = 70;
+			}
+
+
 			this.standSpr.visible = false;
 			this.teleportInAnim.visible = true;
 			this.teleportInAnim.gotoAndPlay(0);
 
 			this.teleportInAnim.onComplete = () => {
-				this.PixiContainer.x += 140;
+				this.PixiContainer.x += vec.x;
+				this.PixiContainer.y += vec.y;
 				this.teleportInAnim.visible = false;
 				this.teleportOutAnim.visible = true;
 				this.teleportOutAnim.gotoAndPlay(0);
