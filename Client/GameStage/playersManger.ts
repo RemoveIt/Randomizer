@@ -9,9 +9,8 @@
 	}
 
 	Add(data: PlayerFullData) {
-		var newPlr = new MuddyHag(data);
+		var newPlr = new MuddyHag(data, this.PixiStage);
 		this.List.push(newPlr);
-		this.PixiStage.addChild(newPlr.PixiContainer);
 	}
 
 	Get(ID: string): Player {
@@ -41,7 +40,7 @@
 
 	ReqForCurrentPlayerData(socket: SocketIOClient.Socket, onDone: () => void) {
 		socket.on("FirstPlayer", (data: ServerResponse) => {
-			this.CurrPlayer = new CurrentPlayer(new MuddyHag(data.Data[0]), socket);
+			this.CurrPlayer = new CurrentPlayer(new MuddyHag(data.Data[0], this.PixiStage), socket);
 			this.List.push(this.CurrPlayer.player);
 			this.PixiStage.addChild(this.CurrPlayer.player.PixiContainer);
 			onDone();

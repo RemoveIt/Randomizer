@@ -6,8 +6,8 @@
 	private teleportOutAnim: PIXI.MovieClip;
 	private boltAnim: PIXI.MovieClip;
 
-	constructor(data: PlayerFullData) {
-		super(data);
+	constructor(data: PlayerFullData, parent: PIXI.DisplayObjectContainer) {
+		super(data, parent);
 		this.standSpr = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Pic.Src);
 		this.standSpr.position = new PIXI.Point(-(config.Players[0].Pic.Width - 70) / 2, -(config.Players[0].Pic.Height - 70) / 2);
 
@@ -21,9 +21,10 @@
 		this.teleportOutAnim.visible = false;
 		this.PixiContainer.addChild(this.teleportOutAnim);
 
-		this.boltAnim = MovieClipFactory.Create(config.Players[0].Anim.Bolt, 0.9, false);
+		this.boltAnim = MovieClipFactory.Create(config.Players[0].Anim.Bolt, 1.0, false);
 		this.boltAnim.visible = false;
-		this.PixiContainer.addChild(this.boltAnim);
+		this.boltAnim.loop = true;
+		parent.addChild(this.boltAnim);
 	}
 
 
@@ -69,6 +70,7 @@
 	private teleAbiLastKey = "";
 	private teleAbiTimeoutHandle = 0;
 
+	private boltV = new PIXI.Point(0, 0);
 	AbilityKeyPress(keyLetter: string, onDone: (Abidata: AbilityData) => void) {
 		if (keyLetter.search(/[QWAS]/) !== -1) {
 
@@ -95,6 +97,14 @@
 		}
 
 		if (keyLetter === "E") {
+			//magic
+			this.boltV.x = Math.sin((this.Rotation-1) * Math.PI / 2) * 560;
+			this.boltV.y = -Math.cos((this.Rotation-1) * Math.PI / 2) * 560;
+
+			console.log(this.boltV);
+			console.log(this.Rotation);
+			this.boltAnim.x = this.PixiContainer.x - 35;
+			this.boltAnim.y = this.PixiContainer.y - 35;
 			this.boltAnim.visible = true;
 			this.boltAnim.gotoAndPlay(0);
 
@@ -103,7 +113,8 @@
 
 	Update() {
 		if (this.boltAnim.visible) {
-			this.boltAnim.x += 5;
+			this.boltAnim.x += this.boltV.x/60;
+			this.boltAnim.y += this.boltV.y/60;
 		}
 	}
 

@@ -8,11 +8,13 @@ class Player {
 	ChampionName = "None";
 	MoveCooldown = 200;
 
-	constructor(data: PlayerFullData) {
+	constructor(data: PlayerFullData, parent: PIXI.DisplayObjectContainer) {
+		console.log(parent);
 		this.ID = data.ID;
 		this.PixiContainer.position.x = data.Pos.x;
 		this.PixiContainer.position.y = data.Pos.y;
 		this.PixiContainer.pivot = new PIXI.Point(35, 35);
+		parent.addChild(this.PixiContainer);
 	}
 
 	Move(movingData: MovingData) {
