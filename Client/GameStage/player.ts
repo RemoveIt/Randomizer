@@ -3,7 +3,6 @@
  */
 class Player {
 	ID: string;
-	Busy = false;
 	PixiContainer = new PIXI.DisplayObjectContainer();
 	Rotation = Rotation.Up;
 	ChampionName = "None";
@@ -32,7 +31,7 @@ class Player {
 
 	}
 
-	PerformAbility(abidata: AbilityData) {
+	PerformAbility(abidata: AbilityData, OnDone?: () => void) {
 
 	}
 	

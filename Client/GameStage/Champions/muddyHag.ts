@@ -4,6 +4,7 @@
 	private standSpr: PIXI.Sprite;
 	private teleportInAnim: PIXI.MovieClip;
 	private teleportOutAnim: PIXI.MovieClip;
+	private boltAnim: PIXI.MovieClip;
 
 	constructor(data: PlayerFullData) {
 		super(data);
@@ -19,39 +20,47 @@
 		this.teleportOutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut, AnimationSpeed, false);
 		this.teleportOutAnim.visible = false;
 		this.PixiContainer.addChild(this.teleportOutAnim);
+
+		this.boltAnim = MovieClipFactory.Create(config.Players[0].Anim.Bolt, 0.9, false);
+		this.boltAnim.visible = false;
+		this.PixiContainer.addChild(this.boltAnim);
 	}
 
 
-	PerformAbility(Abidata: AbilityData) {
-		this.Busy = true;
-		this.standSpr.visible = false;
-		this.teleportInAnim.visible = true;
-		this.teleportInAnim.gotoAndPlay(0);
-		
-		this.teleportInAnim.onComplete = () => {
-			if (Abidata.Key === "Q") {
-				this.PixiContainer.x += -70 * Abidata.AddInfo;
-				this.PixiContainer.y += -70 * Abidata.AddInfo;
-			}
-			if (Abidata.Key === "W") {
-				this.PixiContainer.x += 70 * Abidata.AddInfo;
-				this.PixiContainer.y += -70 * Abidata.AddInfo;
-			}
-			if (Abidata.Key === "A") {
-				this.PixiContainer.x += -70 * Abidata.AddInfo;
-				this.PixiContainer.y += 70 * Abidata.AddInfo;
-			}
-			if (Abidata.Key === "S") {
-				this.PixiContainer.x += 70 * Abidata.AddInfo;
-				this.PixiContainer.y += 70 * Abidata.AddInfo;
-			}
+	PerformAbility(Abidata: AbilityData, OnDone?:() => void) {
+		if (Abidata.Key.search(/[QWAS]/) !== -1) {
+			this.standSpr.visible = false;
+			this.teleportInAnim.visible = true;
+			this.teleportInAnim.gotoAndPlay(0);
+			
+			this.teleportInAnim.onComplete = () => {
+				if (Abidata.Key === "Q") {
+					this.PixiContainer.x += -70 * Abidata.AddInfo;
+					this.PixiContainer.y += -70 * Abidata.AddInfo;
+				}
+				if (Abidata.Key === "W") {
+					this.PixiContainer.x += 70 * Abidata.AddInfo;
+					this.PixiContainer.y += -70 * Abidata.AddInfo;
+				}
+				if (Abidata.Key === "A") {
+					this.PixiContainer.x += -70 * Abidata.AddInfo;
+					this.PixiContainer.y += 70 * Abidata.AddInfo;
+				}
+				if (Abidata.Key === "S") {
+					this.PixiContainer.x += 70 * Abidata.AddInfo;
+					this.PixiContainer.y += 70 * Abidata.AddInfo;
+				}
 
-			this.teleportInAnim.visible = false;
-			this.teleportOutAnim.visible = true;
-			this.teleportOutAnim.gotoAndPlay(0);
-			this.teleportOutAnim.onComplete = () => {
-				setTimeout(() => { this.standSpr.visible = true; this.teleportOutAnim.visible = false; }, 0);
-				this.Busy = false;
+				this.teleportInAnim.visible = false;
+				this.teleportOutAnim.visible = true;
+				this.teleportOutAnim.gotoAndPlay(0);
+				
+				this.teleportOutAnim.onComplete = () => {
+					setTimeout(() => { this.standSpr.visible = true; this.teleportOutAnim.visible = false; }, 0);
+					if (OnDone) {
+						OnDone();
+					}
+				}
 			}
 		}
 	}
@@ -77,15 +86,25 @@
 					var abiData = { ID: this.ID, Key: this.teleAbiLastKey, AddInfo: this.teleAbiKeyPressCount };
 
 					onDone(abiData);
-					this.PerformAbility(abiData);
-
+		
 					this.teleAbiKeyPressCount = 0;
 					this.teleAbiTimeoutHandle = 0;
 					this.teleAbiLastKey = "";
 				}, 200);
 			}
 		}
+
+		if (keyLetter === "E") {
+			this.boltAnim.visible = true;
+			this.boltAnim.gotoAndPlay(0);
+
+		}
 	}
 
+	Update() {
+		if (this.boltAnim.visible) {
+			this.boltAnim.x += 5;
+		}
+	}
 
 }
