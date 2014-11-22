@@ -71,6 +71,7 @@
 	private teleAbiTimeoutHandle = 0;
 
 	private boltV = new PIXI.Point(0, 0);
+	private boltDist = 0;
 	AbilityKeyPress(keyLetter: string, onDone: (Abidata: AbilityData) => void) {
 		if (keyLetter.search(/[QWAS]/) !== -1) {
 
@@ -96,15 +97,14 @@
 			}
 		}
 
-		if (keyLetter === "E") {
+		if (keyLetter === "E" && !this.boltAnim.visible) {
 			//magic
 			this.boltV.x = Math.sin((this.Rotation-1) * Math.PI / 2) * 560;
-			this.boltV.y = -Math.cos((this.Rotation-1) * Math.PI / 2) * 560;
+			this.boltV.y = -Math.cos((this.Rotation - 1) * Math.PI / 2) * 560;
 
-			console.log(this.boltV);
-			console.log(this.Rotation);
 			this.boltAnim.x = this.PixiContainer.x - 35;
 			this.boltAnim.y = this.PixiContainer.y - 35;
+			this.boltDist= 0;
 			this.boltAnim.visible = true;
 			this.boltAnim.gotoAndPlay(0);
 
@@ -113,8 +113,12 @@
 
 	Update() {
 		if (this.boltAnim.visible) {
-			this.boltAnim.x += this.boltV.x/60;
-			this.boltAnim.y += this.boltV.y/60;
+			this.boltDist += 1/60;
+			this.boltAnim.x += this.boltV.x / 60;
+			this.boltAnim.y += this.boltV.y / 60;
+			if (this.boltDist > 0.5) {
+				this.boltAnim.visible = false;
+			}
 		}
 	}
 
