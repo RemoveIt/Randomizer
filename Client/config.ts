@@ -16,6 +16,9 @@
 				},
 				Bolt: {
 					Path: "champions/muddy_hag/bolt/", FrameCount: 32, Width: 70, Height: 70
+				},
+				Ultimate: {
+					Path: "champions/muddy_hag/ultimate/", FrameCount: 23, Width: 210, Height: 210
 				}
 			}
 		}

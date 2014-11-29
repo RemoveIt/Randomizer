@@ -5,6 +5,7 @@
 	private teleportInAnim: PIXI.MovieClip;
 	private teleportOutAnim: PIXI.MovieClip;
 	private boltAnim: PIXI.MovieClip;
+	private ultimateAnim: PIXI.MovieClip;
 
 	constructor(data: PlayerFullData, parent: PIXI.DisplayObjectContainer) {
 		super(data, parent);
@@ -21,6 +22,11 @@
 		this.teleportOutAnim.visible = false;
 		this.PixiContainer.addChild(this.teleportOutAnim);
 
+		this.ultimateAnim = MovieClipFactory.Create(config.Players[0].Anim.Ultimate, AnimationSpeed, false);
+		this.ultimateAnim.visible = false;
+		this.PixiContainer.addChild(this.ultimateAnim);
+
+
 		this.boltAnim = MovieClipFactory.Create(config.Players[0].Anim.Bolt, 1.0, false);
 		this.boltAnim.visible = false;
 		this.boltAnim.loop = true;
@@ -28,12 +34,12 @@
 	}
 
 
-	PerformAbility(Abidata: AbilityData, OnDone?:() => void) {
+	PerformAbility(Abidata: AbilityData, OnDone?: () => void) {
 		if (Abidata.Key.search(/[QWAS]/) !== -1) {
 			this.standSpr.visible = false;
 			this.teleportInAnim.visible = true;
 			this.teleportInAnim.gotoAndPlay(0);
-			
+
 			this.teleportInAnim.onComplete = () => {
 				if (Abidata.Key === "Q") {
 					this.PixiContainer.x += -70 * Abidata.AddInfo;
@@ -55,7 +61,7 @@
 				this.teleportInAnim.visible = false;
 				this.teleportOutAnim.visible = true;
 				this.teleportOutAnim.gotoAndPlay(0);
-				
+
 				this.teleportOutAnim.onComplete = () => {
 					setTimeout(() => { this.standSpr.visible = true; this.teleportOutAnim.visible = false; }, 0);
 					if (OnDone) {
@@ -89,7 +95,7 @@
 					var abiData = { ID: this.ID, Key: this.teleAbiLastKey, AddInfo: this.teleAbiKeyPressCount };
 
 					onDone(abiData);
-		
+
 					this.teleAbiKeyPressCount = 0;
 					this.teleAbiTimeoutHandle = 0;
 					this.teleAbiLastKey = "";
@@ -99,21 +105,29 @@
 
 		if (keyLetter === "E" && !this.boltAnim.visible) {
 			//magic
-			this.boltV.x = Math.sin((this.Rotation-1) * Math.PI / 2) * 560;
+			this.boltV.x = Math.sin((this.Rotation - 1) * Math.PI / 2) * 560;
 			this.boltV.y = -Math.cos((this.Rotation - 1) * Math.PI / 2) * 560;
 
 			this.boltAnim.x = this.PixiContainer.x - 35;
 			this.boltAnim.y = this.PixiContainer.y - 35;
-			this.boltDist= 0;
+			this.boltDist = 0;
 			this.boltAnim.visible = true;
 			this.boltAnim.gotoAndPlay(0);
 
+		}
+
+		if (keyLetter === "D") {
+			this.ultimateAnim.visible = true;
+			this.ultimateAnim.gotoAndPlay(0);
+			this.ultimateAnim.onComplete = () => {
+				this.ultimateAnim.visible = false;
+			}
 		}
 	}
 
 	Update() {
 		if (this.boltAnim.visible) {
-			this.boltDist += 1/60;
+			this.boltDist += 1 / 60;
 			this.boltAnim.x += this.boltV.x / 60;
 			this.boltAnim.y += this.boltV.y / 60;
 			if (this.boltDist > 0.5) {

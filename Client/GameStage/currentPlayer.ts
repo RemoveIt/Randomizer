@@ -26,15 +26,15 @@ class CurrentPlayer implements IKeyboardListener {
 		//Ability
 		if (String.fromCharCode(evt.keyCode).toUpperCase().search(/[A-Z]/) !== -1) {
 			this.player.AbilityKeyPress(String.fromCharCode(evt.keyCode).toUpperCase(), (Abidata: AbilityData) => {
+				this.busy = true;
 				this.socket.emit("Player", {
 					Type: "Ability", Data: [Abidata]
 				});
-				this.busy = true;
 				this.player.PerformAbility(Abidata, () => {
 					this.busy = false;
 				})
-
 			});
+			return;
 		}
 
 		if (Date.now() - this.lastKeyTime < this.player.MoveCooldown) { return; }
