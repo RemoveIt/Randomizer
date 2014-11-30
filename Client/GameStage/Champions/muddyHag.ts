@@ -23,7 +23,7 @@
 
 		this.ultimateAnim = MovieClipFactory.Create(config.Players[0].Anim.Ultimate, 0.8, false);
 		this.ultimateAnim.visible = false;
-		this.staticContainer.addChild(this.ultimateAnim);
+		this.rotatingContainer.addChildAt(this.ultimateAnim, 0);
 
 
 		this.bolt.Anim = MovieClipFactory.Create(config.Players[0].Anim.Bolt, 1.0, false);
