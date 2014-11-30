@@ -11,19 +11,19 @@
 		this.standSpr = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Pic.Src);
 		this.standSpr.position = new PIXI.Point(-(config.Players[0].Pic.Width - 70) / 2, -(config.Players[0].Pic.Height - 70) / 2);
 
-		this.PixiContainer.addChild(this.standSpr);
-		var AnimationSpeed = 0.8;
-		this.teleport.InAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn, AnimationSpeed, false);
+		this.rotatingContainer.addChild(this.standSpr);
+	
+		this.teleport.InAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn, 0.8, false);
 		this.teleport.InAnim.visible = false;
-		this.PixiContainer.addChild(this.teleport.InAnim);
+		this.rotatingContainer.addChild(this.teleport.InAnim);
 
-		this.teleport.OutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut, AnimationSpeed, false);
+		this.teleport.OutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut, 0.8, false);
 		this.teleport.OutAnim.visible = false;
-		this.PixiContainer.addChild(this.teleport.OutAnim);
+		this.rotatingContainer.addChild(this.teleport.OutAnim);
 
-		this.ultimateAnim = MovieClipFactory.Create(config.Players[0].Anim.Ultimate, AnimationSpeed, false);
+		this.ultimateAnim = MovieClipFactory.Create(config.Players[0].Anim.Ultimate, 0.8, false);
 		this.ultimateAnim.visible = false;
-		this.PixiContainer.addChild(this.ultimateAnim);
+		this.staticContainer.addChild(this.ultimateAnim);
 
 
 		this.bolt.Anim = MovieClipFactory.Create(config.Players[0].Anim.Bolt, 1.0, false);
