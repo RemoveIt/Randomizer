@@ -4,7 +4,7 @@
 	private standSpr: PIXI.Sprite;
 	private teleportInAnim: PIXI.MovieClip;
 	private teleportOutAnim: PIXI.MovieClip;
-	private boltAnim: PIXI.MovieClip;
+	private boltAnim: PIXI.MovieClip; // TODO put all properities of bolt into single object
 	private ultimateAnim: PIXI.MovieClip;
 
 	constructor(data: PlayerFullData, parent: PIXI.DisplayObjectContainer) {
@@ -33,6 +33,8 @@
 		parent.addChild(this.boltAnim);
 	}
 
+	private boltV = new PIXI.Point(0, 0);
+	private boltDist = 0;
 
 	PerformAbility(Abidata: AbilityData, OnDone?: () => void) {
 		if (Abidata.Key.search(/[QWAS]/) !== -1) {
@@ -70,14 +72,41 @@
 				}
 			}
 		}
+
+		if (Abidata.Key === "E") {
+			this.boltV.x = Abidata.AddInfo.x;
+			this.boltV.y = Abidata.AddInfo.y;
+
+			this.boltAnim.x = this.PixiContainer.x - 35;
+			this.boltAnim.y = this.PixiContainer.y - 35;
+
+			this.boltDist = 0;
+			this.boltAnim.visible = true;
+			this.boltAnim.gotoAndPlay(0);
+
+			if (OnDone) {
+				OnDone();
+			}
+
+		}
+
+		if (Abidata.Key === "D") {
+			this.ultimateAnim.visible = true;
+			this.ultimateAnim.gotoAndPlay(0);
+			this.ultimateAnim.onComplete = () => {
+				this.ultimateAnim.visible = false;
+				if (OnDone) {
+					OnDone();
+				}
+			}
+		}
+
 	}
 
 	private teleAbiKeyPressCount = 0;
 	private teleAbiLastKey = "";
 	private teleAbiTimeoutHandle = 0;
 
-	private boltV = new PIXI.Point(0, 0);
-	private boltDist = 0;
 	AbilityKeyPress(keyLetter: string, onDone: (Abidata: AbilityData) => void) {
 		if (keyLetter.search(/[QWAS]/) !== -1) {
 
@@ -105,23 +134,16 @@
 
 		if (keyLetter === "E" && !this.boltAnim.visible) {
 			//magic
-			this.boltV.x = Math.sin((this.Rotation - 1) * Math.PI / 2) * 560;
-			this.boltV.y = -Math.cos((this.Rotation - 1) * Math.PI / 2) * 560;
+			var tmpX = Math.sin((this.Rotation - 1) * Math.PI / 2) * 560;
+			var tmpY = -Math.cos((this.Rotation - 1) * Math.PI / 2) * 560;
+			var abiData = { ID: this.ID, Key: keyLetter, AddInfo: { x: tmpX, y: tmpY } };
 
-			this.boltAnim.x = this.PixiContainer.x - 35;
-			this.boltAnim.y = this.PixiContainer.y - 35;
-			this.boltDist = 0;
-			this.boltAnim.visible = true;
-			this.boltAnim.gotoAndPlay(0);
-
+			onDone(abiData);
 		}
 
 		if (keyLetter === "D") {
-			this.ultimateAnim.visible = true;
-			this.ultimateAnim.gotoAndPlay(0);
-			this.ultimateAnim.onComplete = () => {
-				this.ultimateAnim.visible = false;
-			}
+			var abiData2 = { ID: this.ID, Key: keyLetter };
+			onDone(abiData2);
 		}
 	}
 
