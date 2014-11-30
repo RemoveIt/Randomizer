@@ -2,9 +2,8 @@
 
 	ChampionName = "Muddy Hag";
 	private standSpr: PIXI.Sprite;
-	private teleportInAnim: PIXI.MovieClip;
-	private teleportOutAnim: PIXI.MovieClip;
-	private boltAnim: PIXI.MovieClip; // TODO put all properities of bolt into single object
+	private teleport = { InAnim: < PIXI.MovieClip > null, OutAnim: <PIXI.MovieClip>null, KeyPressCount: 0, LastKey: "", TimeoutHandle: 0 }
+	private bolt = { Anim: <PIXI.MovieClip>null, V: { x: 0, y: 0 }, Dist: 0 };
 	private ultimateAnim: PIXI.MovieClip;
 
 	constructor(data: PlayerFullData, parent: PIXI.DisplayObjectContainer) {
@@ -14,35 +13,32 @@
 
 		this.PixiContainer.addChild(this.standSpr);
 		var AnimationSpeed = 0.8;
-		this.teleportInAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn, AnimationSpeed, false);
-		this.teleportInAnim.visible = false;
-		this.PixiContainer.addChild(this.teleportInAnim);
+		this.teleport.InAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn, AnimationSpeed, false);
+		this.teleport.InAnim.visible = false;
+		this.PixiContainer.addChild(this.teleport.InAnim);
 
-		this.teleportOutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut, AnimationSpeed, false);
-		this.teleportOutAnim.visible = false;
-		this.PixiContainer.addChild(this.teleportOutAnim);
+		this.teleport.OutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut, AnimationSpeed, false);
+		this.teleport.OutAnim.visible = false;
+		this.PixiContainer.addChild(this.teleport.OutAnim);
 
 		this.ultimateAnim = MovieClipFactory.Create(config.Players[0].Anim.Ultimate, AnimationSpeed, false);
 		this.ultimateAnim.visible = false;
 		this.PixiContainer.addChild(this.ultimateAnim);
 
 
-		this.boltAnim = MovieClipFactory.Create(config.Players[0].Anim.Bolt, 1.0, false);
-		this.boltAnim.visible = false;
-		this.boltAnim.loop = true;
-		parent.addChild(this.boltAnim);
+		this.bolt.Anim = MovieClipFactory.Create(config.Players[0].Anim.Bolt, 1.0, false);
+		this.bolt.Anim.visible = false;
+		this.bolt.Anim.loop = true;
+		parent.addChild(this.bolt.Anim);
 	}
-
-	private boltV = new PIXI.Point(0, 0);
-	private boltDist = 0;
 
 	PerformAbility(Abidata: AbilityData, OnDone?: () => void) {
 		if (Abidata.Key.search(/[QWAS]/) !== -1) {
 			this.standSpr.visible = false;
-			this.teleportInAnim.visible = true;
-			this.teleportInAnim.gotoAndPlay(0);
+			this.teleport.InAnim.visible = true;
+			this.teleport.InAnim.gotoAndPlay(0);
 
-			this.teleportInAnim.onComplete = () => {
+			this.teleport.InAnim.onComplete = () => {
 				if (Abidata.Key === "Q") {
 					this.PixiContainer.x += -70 * Abidata.AddInfo;
 					this.PixiContainer.y += -70 * Abidata.AddInfo;
@@ -60,12 +56,12 @@
 					this.PixiContainer.y += 70 * Abidata.AddInfo;
 				}
 
-				this.teleportInAnim.visible = false;
-				this.teleportOutAnim.visible = true;
-				this.teleportOutAnim.gotoAndPlay(0);
+				this.teleport.InAnim.visible = false;
+				this.teleport.OutAnim.visible = true;
+				this.teleport.OutAnim.gotoAndPlay(0);
 
-				this.teleportOutAnim.onComplete = () => {
-					setTimeout(() => { this.standSpr.visible = true; this.teleportOutAnim.visible = false; }, 0);
+				this.teleport.OutAnim.onComplete = () => {
+					setTimeout(() => { this.standSpr.visible = true; this.teleport.OutAnim.visible = false; }, 0);
 					if (OnDone) {
 						OnDone();
 					}
@@ -74,15 +70,15 @@
 		}
 
 		if (Abidata.Key === "E") {
-			this.boltV.x = Abidata.AddInfo.x;
-			this.boltV.y = Abidata.AddInfo.y;
+			this.bolt.V.x = Abidata.AddInfo.x;
+			this.bolt.V.y = Abidata.AddInfo.y;
 
-			this.boltAnim.x = this.PixiContainer.x - 35;
-			this.boltAnim.y = this.PixiContainer.y - 35;
+			this.bolt.Anim.x = this.PixiContainer.x - 35;
+			this.bolt.Anim.y = this.PixiContainer.y - 35;
 
-			this.boltDist = 0;
-			this.boltAnim.visible = true;
-			this.boltAnim.gotoAndPlay(0);
+			this.bolt.Dist = 0;
+			this.bolt.Anim.visible = true;
+			this.bolt.Anim.gotoAndPlay(0);
 
 			if (OnDone) {
 				OnDone();
@@ -103,36 +99,33 @@
 
 	}
 
-	private teleAbiKeyPressCount = 0;
-	private teleAbiLastKey = "";
-	private teleAbiTimeoutHandle = 0;
 
 	AbilityKeyPress(keyLetter: string, onDone: (Abidata: AbilityData) => void) {
 		if (keyLetter.search(/[QWAS]/) !== -1) {
 
-			if (this.teleAbiLastKey == "") {
-				this.teleAbiLastKey = keyLetter;
+			if (this.teleport.LastKey == "") {
+				this.teleport.LastKey = keyLetter;
 			}
 
-			if (this.teleAbiLastKey === keyLetter) {
-				this.teleAbiKeyPressCount++;
+			if (this.teleport.LastKey === keyLetter) {
+				this.teleport.KeyPressCount++;
 			}
 
-			if (this.teleAbiKeyPressCount < 4) {
-				clearTimeout(this.teleAbiTimeoutHandle);
-				this.teleAbiTimeoutHandle = setTimeout(() => {
-					var abiData = { ID: this.ID, Key: this.teleAbiLastKey, AddInfo: this.teleAbiKeyPressCount };
+			if (this.teleport.KeyPressCount < 4) {
+				clearTimeout(this.teleport.TimeoutHandle);
+				this.teleport.TimeoutHandle = setTimeout(() => {
+					var abiData = { ID: this.ID, Key: this.teleport.LastKey, AddInfo: this.teleport.KeyPressCount };
 
 					onDone(abiData);
 
-					this.teleAbiKeyPressCount = 0;
-					this.teleAbiTimeoutHandle = 0;
-					this.teleAbiLastKey = "";
+					this.teleport.KeyPressCount = 0;
+					this.teleport.TimeoutHandle = 0;
+					this.teleport.LastKey = "";
 				}, 200);
 			}
 		}
 
-		if (keyLetter === "E" && !this.boltAnim.visible) {
+		if (keyLetter === "E" && !this.bolt.Anim.visible) {
 			//magic
 			var tmpX = Math.sin((this.Rotation - 1) * Math.PI / 2) * 560;
 			var tmpY = -Math.cos((this.Rotation - 1) * Math.PI / 2) * 560;
@@ -148,12 +141,12 @@
 	}
 
 	Update() {
-		if (this.boltAnim.visible) {
-			this.boltDist += 1 / 60;
-			this.boltAnim.x += this.boltV.x / 60;
-			this.boltAnim.y += this.boltV.y / 60;
-			if (this.boltDist > 0.5) {
-				this.boltAnim.visible = false;
+		if (this.bolt.Anim.visible) {
+			this.bolt.Dist += 1 / 60;
+			this.bolt.Anim.x += this.bolt.V.x / 60;
+			this.bolt.Anim.y += this.bolt.V.y / 60;
+			if (this.bolt.Dist > 0.5) {
+				this.bolt.Anim.visible = false;
 			}
 		}
 	}
