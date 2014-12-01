@@ -25,9 +25,12 @@ class Player {
 
 		this.hpBar = new PIXI.Graphics;
 		//this.hpBar.beginFill(0xFF0000);
+		this.hpBar.lineStyle(6, 0x000000);
+		this.hpBar.moveTo(8, 5);
+		this.hpBar.lineTo(62, 5);
 		this.hpBar.lineStyle(2, 0xFF0000);
-		this.hpBar.moveTo(60, 10);
-		this.hpBar.lineTo(60, 60);
+		this.hpBar.moveTo(10, 5);
+		this.hpBar.lineTo(60, 5);
 		this.staticContainer.addChild(this.hpBar);
 	}
 
