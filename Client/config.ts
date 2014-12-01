@@ -23,6 +23,7 @@
 			}
 		}
 	],
-	groundSrc: "map/map_new.png"
+	groundSrc: "map/map_new.png",
+	hudSrc: "hud/hud.png"
 }
 

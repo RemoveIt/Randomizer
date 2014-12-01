@@ -34,6 +34,7 @@
     <TypeScriptCompile Include="game.ts" />
     <TypeScriptCompile Include="GameStage\gameStage.ts" />
     <TypeScriptCompile Include="GameStage\ground.ts" />
+    <TypeScriptCompile Include="GameStage\hud.ts" />
     <TypeScriptCompile Include="GameStage\movieClipFactory.ts" />
     <TypeScriptCompile Include="GameStage\player.ts" />
     <TypeScriptCompile Include="GameStage\playersManger.ts" />

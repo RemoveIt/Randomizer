@@ -1,4 +1,9 @@
-﻿#GameCanvas {
+﻿body {
+    background-color:black;
+
+}
+
+#GameCanvas {
     position: absolute;
     left: 50%;
     margin-left: -500px;
