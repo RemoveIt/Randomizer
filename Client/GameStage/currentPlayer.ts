@@ -71,7 +71,7 @@ class CurrentPlayer implements IKeyboardListener {
 		this.socket.emit("Player", {
 			Type: "Moving", Data: [{
 				ID: this.player.ID,
-				Pos: { x: this.player.PixiContainer.position.x, y: this.player.PixiContainer.position.y },
+				Pos: { x: this.player.PixiContainer.position.x / 70, y: this.player.PixiContainer.position.y / 70 },
 				Rot: this.player.Rotation
 			}]
 		});

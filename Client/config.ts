@@ -7,7 +7,7 @@
 				Src: "champions/muddy_hag/stand.png",
 				Width: 210, Height: 210
 			},
-		
+
 			Anim: {
 				TeleportIn: {
 					Path: "champions/muddy_hag/teleport_in/", FrameCount: 17, Width: 210, Height: 210
@@ -24,7 +24,10 @@
 			}
 		}
 	],
-	groundSrc: "map/map_new.png",
+	Ground: {
+		Src: "map/map_new.png",
+		Size: { x: 10, y: 10 }
+	},
 	hudSrc: "hud/hud.png"
 }
 

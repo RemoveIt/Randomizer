@@ -15,8 +15,8 @@ class Player {
 
 	constructor(data: PlayerFullData, parent: PIXI.DisplayObjectContainer) {
 		this.ID = data.ID;
-		this.PixiContainer.position.x = data.Pos.x;
-		this.PixiContainer.position.y = data.Pos.y;
+		this.PixiContainer.position.x = data.Pos.x * 70 + 35;
+		this.PixiContainer.position.y = data.Pos.y * 70 + 35;
 		this.rotatingContainer.pivot = new PIXI.Point(35, 35);
 		this.PixiContainer.addChild(this.rotatingContainer);
 		this.staticContainer.pivot = new PIXI.Point(35, 35);
@@ -29,8 +29,8 @@ class Player {
 	}
 
 	Move(movingData: MovingData) {
-		this.PixiContainer.position.x = movingData.Pos.x;
-		this.PixiContainer.position.y = movingData.Pos.y;
+		this.PixiContainer.position.x = movingData.Pos.x * 70;
+		this.PixiContainer.position.y = movingData.Pos.y * 70;
 
 		this.Rotate(movingData.Rot);
 	}
@@ -41,15 +41,12 @@ class Player {
 	}
 
 	AbilityKeyPress(keyLetter: string, onDone?: (Abidata: AbilityData) => void) {
-
 	}
 
 	PerformAbility(abidata: AbilityData, OnDone?: () => void) {
-
 	}
 
 	Update() {
-
 	}
 
 	LoseHP(dmg: number) {
