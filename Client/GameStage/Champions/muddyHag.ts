@@ -1,6 +1,7 @@
 ﻿class MuddyHag extends Player {
 
-	ChampionName = "Muddy Hag";
+	Champion = Champions.MuddyHag;
+	HP = config.Players[this.Champion].MaxHP;
 	private standSpr: PIXI.Sprite;
 	private teleport = { InAnim: < PIXI.MovieClip > null, OutAnim: <PIXI.MovieClip>null, KeyPressCount: 0, LastKey: "", TimeoutHandle: 0 }
 	private bolt = { Anim: <PIXI.MovieClip>null, V: { x: 0, y: 0 }, Dist: 0 };

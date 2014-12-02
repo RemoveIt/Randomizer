@@ -7,7 +7,7 @@ class Player {
 	protected rotatingContainer = new PIXI.DisplayObjectContainer();
 	protected staticContainer = new PIXI.DisplayObjectContainer();
 	Rotation = Rotation.Up;
-	ChampionName = "None";
+	Champion = Champions.None;
 	MoveCooldown = 200;
 	HP = 0;
 
@@ -23,14 +23,8 @@ class Player {
 		this.PixiContainer.addChild(this.staticContainer);
 		parent.addChild(this.PixiContainer);
 
-		this.hpBar = new PIXI.Graphics;
-		//this.hpBar.beginFill(0xFF0000);
-		this.hpBar.lineStyle(6, 0x000000);
-		this.hpBar.moveTo(8, 5);
-		this.hpBar.lineTo(62, 5);
-		this.hpBar.lineStyle(2, 0xFF0000);
-		this.hpBar.moveTo(10, 5);
-		this.hpBar.lineTo(60, 5);
+		this.hpBar = new PIXI.Graphics();
+		this.drawHPBar(1.0);
 		this.staticContainer.addChild(this.hpBar);
 	}
 
@@ -56,5 +50,20 @@ class Player {
 
 	Update() {
 
+	}
+
+	LoseHP(dmg: number) {
+		this.HP -= dmg;
+		this.drawHPBar(this.HP / 100);
+	}
+
+	private drawHPBar(hpFraction: number) {
+		this.hpBar.clear();
+		this.hpBar.lineStyle(6, 0x000000);
+		this.hpBar.moveTo(8, 5);
+		this.hpBar.lineTo(62, 5);
+		this.hpBar.lineStyle(2, 0xFF0000);
+		this.hpBar.moveTo(10, 5);
+		this.hpBar.lineTo(10 + (50 * hpFraction), 5);
 	}
 }

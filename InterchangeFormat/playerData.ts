@@ -1,4 +1,4 @@
-enum Champions { MuddyHag }
+enum Champions { None = -1, MuddyHag }
 
 /**
  * On player spawn or on sending info about existing players on map

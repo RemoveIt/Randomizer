@@ -2,6 +2,7 @@
 	Players: [
 		{
 			Name: "Muddy Hag",
+			MaxHP: 100,
 			Pic: {
 				Src: "champions/muddy_hag/stand.png",
 				Width: 210, Height: 210
