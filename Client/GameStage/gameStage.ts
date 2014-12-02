@@ -12,8 +12,8 @@
 		this.socket = socket;
 		this.PixiStage = new PIXI.Stage(0);
 		this.PixiStage.addChild(this.objectContainer);
-		this.playerManager = new PlayersManager(this.objectContainer);
-		this.playersNetwork = new PlayersNetwork(this.socket, this.playerManager);
+		this.playerManager = new PlayersManager(this.objectContainer, this.ground);
+		this.playersNetwork = new PlayersNetwork(this.socket, this.playerManager, this.ground);
 		
 	}
 

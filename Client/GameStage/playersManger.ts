@@ -3,9 +3,10 @@
 	List: Player[] = [];
 	CurrPlayer: CurrentPlayer;
 	private PixiStage: PIXI.DisplayObjectContainer;
-
-	constructor(stage: PIXI.DisplayObjectContainer) {
+	private ground: Ground
+	constructor(stage: PIXI.DisplayObjectContainer, ground: Ground) {
 		this.PixiStage = stage;
+		this.ground = ground;
 	}
 
 	Add(data: PlayerFullData) {
@@ -40,7 +41,7 @@
 
 	ReqForCurrentPlayerData(socket: SocketIOClient.Socket, onDone: () => void) {
 		socket.on("FirstPlayer", (data: ServerResponse) => {
-			this.CurrPlayer = new CurrentPlayer(new MuddyHag(data.Data[0], this.PixiStage), socket);
+			this.CurrPlayer = new CurrentPlayer(new MuddyHag(data.Data[0], this.PixiStage), socket, this.ground);
 			this.List.push(this.CurrPlayer.player);
 			this.PixiStage.addChild(this.CurrPlayer.player.PixiContainer);
 			onDone();

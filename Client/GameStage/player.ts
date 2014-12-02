@@ -10,11 +10,13 @@ class Player {
 	Champion = Champions.None;
 	MoveCooldown = 200;
 	HP = 0;
-
+	Pos = { x: 0, y: 0 };
 	private hpBar: PIXI.Graphics;
 
 	constructor(data: PlayerFullData, parent: PIXI.DisplayObjectContainer) {
 		this.ID = data.ID;
+		this.Pos.x = data.Pos.x;
+		this.Pos.y = data.Pos.y;
 		this.PixiContainer.position.x = data.Pos.x * 70 + 35;
 		this.PixiContainer.position.y = data.Pos.y * 70 + 35;
 		this.rotatingContainer.pivot = new PIXI.Point(35, 35);
@@ -29,8 +31,10 @@ class Player {
 	}
 
 	Move(movingData: MovingData) {
-		this.PixiContainer.position.x = movingData.Pos.x * 70;
-		this.PixiContainer.position.y = movingData.Pos.y * 70;
+		this.Pos.x = movingData.Pos.x;
+		this.Pos.y = movingData.Pos.y;
+		this.PixiContainer.position.x = movingData.Pos.x * 70 + 35;
+		this.PixiContainer.position.y = movingData.Pos.y * 70 + 35;
 
 		this.Rotate(movingData.Rot);
 	}

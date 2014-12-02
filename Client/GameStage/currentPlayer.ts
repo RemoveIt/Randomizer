@@ -4,12 +4,14 @@ class CurrentPlayer implements IKeyboardListener {
 	private socket: SocketIOClient.Socket;
 	private lastKeyTime: number = 0;
 	private busy = false;
+	private ground: Ground;
 	player: Player;
 
-	constructor(plr: Player, socket: SocketIOClient.Socket) {
+	constructor(plr: Player, socket: SocketIOClient.Socket, ground: Ground) {
 		this.player = plr;
 		KeyboardManager.AddListener(this);
 		this.socket = socket;
+		this.ground = ground;
 	}
 
 	OnKeyPress(evt: KeyboardEvent) {
@@ -49,20 +51,21 @@ class CurrentPlayer implements IKeyboardListener {
 
 	private Move() {
 
-		if (this.player.Rotation === Rotation.Left) {
-			this.player.PixiContainer.position.x -= 70;
+		if (this.player.Rotation === Rotation.Left && !this.ground.CollisionMap[this.player.Pos.x - 1][this.player.Pos.y]) {
+			this.player.Pos.x -= 1;
 		}
-		if (this.player.Rotation === Rotation.Up) {
-			this.player.PixiContainer.position.y -= 70;
+		if (this.player.Rotation === Rotation.Up && !this.ground.CollisionMap[this.player.Pos.x][this.player.Pos.y - 1]) {
+			this.player.Pos.y -= 1;
 		}
-		if (this.player.Rotation === Rotation.Right) {
-			this.player.PixiContainer.position.x += 70;
+		if (this.player.Rotation === Rotation.Right && !this.ground.CollisionMap[this.player.Pos.x + 1][this.player.Pos.y]) {
+			this.player.Pos.x += 1;
 		}
-		if (this.player.Rotation === Rotation.Down) {
-			this.player.PixiContainer.position.y += 70;
+		if (this.player.Rotation === Rotation.Down && !this.ground.CollisionMap[this.player.Pos.x][this.player.Pos.y + 1]) {
+			this.player.Pos.y += 1;
 		}
 
-
+		this.player.PixiContainer.position.x = this.player.Pos.x * 70 + 35;
+		this.player.PixiContainer.position.y = this.player.Pos.y * 70 + 35;
 		this.SendMovingData();
 	}
 
@@ -71,7 +74,7 @@ class CurrentPlayer implements IKeyboardListener {
 		this.socket.emit("Player", {
 			Type: "Moving", Data: [{
 				ID: this.player.ID,
-				Pos: { x: this.player.PixiContainer.position.x / 70, y: this.player.PixiContainer.position.y / 70 },
+				Pos: { x: this.player.Pos.x, y: this.player.Pos.y },
 				Rot: this.player.Rotation
 			}]
 		});
