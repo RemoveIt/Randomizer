@@ -10,7 +10,7 @@
 	}
 
 	Add(data: PlayerFullData) {
-		var newPlr = new MuddyHag(data, this.PixiStage);
+		var newPlr = new MuddyHag(data, this.PixiStage, this.ground);
 		this.List.push(newPlr);
 	}
 
@@ -28,6 +28,7 @@
 		for (var i = 0; i < this.List.length; i++) {
 			if (this.List[i].ID === ID) {
 				this.PixiStage.removeChild(this.List[i].PixiContainer);
+				this.List[i].Dispose();
 				this.List.splice(i, 1);
 			}
 		}
@@ -41,7 +42,7 @@
 
 	ReqForCurrentPlayerData(socket: SocketIOClient.Socket, onDone: () => void) {
 		socket.on("FirstPlayer", (data: ServerResponse) => {
-			this.CurrPlayer = new CurrentPlayer(new MuddyHag(data.Data[0], this.PixiStage), socket, this.ground);
+			this.CurrPlayer = new CurrentPlayer(new MuddyHag(data.Data[0], this.PixiStage, this.ground), socket, this.ground);
 			this.List.push(this.CurrPlayer.player);
 			this.PixiStage.addChild(this.CurrPlayer.player.PixiContainer);
 			onDone();

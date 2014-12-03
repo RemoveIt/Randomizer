@@ -7,8 +7,8 @@
 	private bolt = { Anim: <PIXI.MovieClip>null, V: { x: 0, y: 0 }, Dist: 0 };
 	private ultimateAnim: PIXI.MovieClip;
 
-	constructor(data: PlayerFullData, parent: PIXI.DisplayObjectContainer) {
-		super(data, parent);
+	constructor(data: PlayerFullData, parent: PIXI.DisplayObjectContainer, ground: Ground) {
+		super(data, parent, ground );
 		this.standSpr = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Pic.Src);
 		this.standSpr.position = new PIXI.Point(-(config.Players[0].Pic.Width - 70) / 2, -(config.Players[0].Pic.Height - 70) / 2);
 
@@ -40,23 +40,25 @@
 			this.teleport.InAnim.gotoAndPlay(0);
 
 			this.teleport.InAnim.onComplete = () => {
+				var tmpV = { x: 0, y: 0 };
 				if (Abidata.Key === "Q") {
-					this.PixiContainer.x += -70 * Abidata.AddInfo;
-					this.PixiContainer.y += -70 * Abidata.AddInfo;
+					tmpV.x += -Abidata.AddInfo;
+					tmpV.y += -Abidata.AddInfo;
 				}
 				if (Abidata.Key === "W") {
-					this.PixiContainer.x += 70 * Abidata.AddInfo;
-					this.PixiContainer.y += -70 * Abidata.AddInfo;
+					tmpV.x += Abidata.AddInfo;
+					tmpV.y += -Abidata.AddInfo;
 				}
 				if (Abidata.Key === "A") {
-					this.PixiContainer.x += -70 * Abidata.AddInfo;
-					this.PixiContainer.y += 70 * Abidata.AddInfo;
+					tmpV.x += -Abidata.AddInfo;
+					tmpV.y += Abidata.AddInfo;
 				}
 				if (Abidata.Key === "S") {
-					this.PixiContainer.x += 70 * Abidata.AddInfo;
-					this.PixiContainer.y += 70 * Abidata.AddInfo;
+					tmpV.x += Abidata.AddInfo;
+					tmpV.y += Abidata.AddInfo;
 				}
 
+				this.Move({ ID: "1", Pos: { x: this.Pos.x + tmpV.x, y: this.Pos.y + tmpV.y }, Rot: this.Rotation});
 				this.teleport.InAnim.visible = false;
 				this.teleport.OutAnim.visible = true;
 				this.teleport.OutAnim.gotoAndPlay(0);
