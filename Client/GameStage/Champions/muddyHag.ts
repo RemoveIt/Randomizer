@@ -58,7 +58,7 @@
 					tmpV.y += Abidata.AddInfo;
 				}
 
-				this.Move({ ID: "1", Pos: { x: this.Pos.x + tmpV.x, y: this.Pos.y + tmpV.y }, Rot: this.Rotation});
+				this.Move({ ID: "", Pos: { x: this.Pos.x + tmpV.x, y: this.Pos.y + tmpV.y }, Rot: this.Rotation});
 				this.teleport.InAnim.visible = false;
 				this.teleport.OutAnim.visible = true;
 				this.teleport.OutAnim.gotoAndPlay(0);

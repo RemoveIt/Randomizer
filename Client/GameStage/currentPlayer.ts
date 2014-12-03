@@ -19,7 +19,8 @@ class CurrentPlayer implements IKeyboardListener {
 		if (evt.keyCode >= 37 && evt.keyCode <= 40) {
 			if (evt.keyCode - 37 !== this.player.Rotation) {
 				this.player.Rotate(evt.keyCode - 37);
-				this.SendMovingData();
+				var data = { ID: this.player.ID, Pos: { x: this.player.Pos.x, y: this.player.Pos.y }, Rot: this.player.Rotation };
+				this.socket.emit("Player", { Type: "Moving", Data: [data] });
 				return;
 			}
 		}
@@ -51,33 +52,23 @@ class CurrentPlayer implements IKeyboardListener {
 
 	private Move() {
 
+		var tmpV = { x: 0, y: 0 };
+
 		if (this.player.Rotation === Rotation.Left && !this.ground.CollisionMap[this.player.Pos.x - 1][this.player.Pos.y]) {
-			this.player.Pos.x -= 1;
+			tmpV.x -= 1;
 		}
 		if (this.player.Rotation === Rotation.Up && !this.ground.CollisionMap[this.player.Pos.x][this.player.Pos.y - 1]) {
-			this.player.Pos.y -= 1;
+			tmpV.y -= 1;
 		}
 		if (this.player.Rotation === Rotation.Right && !this.ground.CollisionMap[this.player.Pos.x + 1][this.player.Pos.y]) {
-			this.player.Pos.x += 1;
+			tmpV.x += 1;
 		}
 		if (this.player.Rotation === Rotation.Down && !this.ground.CollisionMap[this.player.Pos.x][this.player.Pos.y + 1]) {
-			this.player.Pos.y += 1;
+			tmpV.y += 1;
 		}
-
-		this.player.PixiContainer.position.x = this.player.Pos.x * 70 + 35;
-		this.player.PixiContainer.position.y = this.player.Pos.y * 70 + 35;
-		this.SendMovingData();
-	}
-
-
-	private SendMovingData() {
-		this.socket.emit("Player", {
-			Type: "Moving", Data: [{
-				ID: this.player.ID,
-				Pos: { x: this.player.Pos.x, y: this.player.Pos.y },
-				Rot: this.player.Rotation
-			}]
-		});
+		var data = { ID: this.player.ID, Pos: { x: this.player.Pos.x + tmpV.x, y: this.player.Pos.y + tmpV.y }, Rot: this.player.Rotation };
+		this.player.Move(data);
+		this.socket.emit("Player", { Type: "Moving", Data: [data] });
 	}
 
 	OnKeyRelease(evt: KeyboardEvent) {

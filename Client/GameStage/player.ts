@@ -13,6 +13,7 @@ class Player {
 	Pos = { x: 0, y: 0 };
 	private hpBar: PIXI.Graphics;
 	protected ground: Ground;
+
 	constructor(data: PlayerFullData, parent: PIXI.DisplayObjectContainer, ground: Ground) {
 		this.ground = ground;
 		this.ID = data.ID;
@@ -30,18 +31,18 @@ class Player {
 		this.drawHPBar(1.0);
 		this.staticContainer.addChild(this.hpBar);
 
-		this.ground.CollisionMap[this.Pos.x][this.Pos.y] = true;
+		this.ground.SetCollision(this.Pos.x,this.Pos.y);
 	}
 
 	Move(movingData: MovingData) {
-		this.ground.CollisionMap[this.Pos.x][this.Pos.y] = false;
+		this.ground.FreeCollision(this.Pos.x, this.Pos.y);
 		this.Pos.x = movingData.Pos.x;
 		this.Pos.y = movingData.Pos.y;
 		this.PixiContainer.position.x = movingData.Pos.x * 70 + 35;
 		this.PixiContainer.position.y = movingData.Pos.y * 70 + 35;
 
 		this.Rotate(movingData.Rot);
-		this.ground.CollisionMap[this.Pos.x][this.Pos.y] = true;
+		this.ground.SetCollision(this.Pos.x, this.Pos.y);
 	}
 
 	Rotate(Rot: Rotation) {
@@ -74,6 +75,6 @@ class Player {
 	}
 
 	Dispose() {
-		this.ground.CollisionMap[this.Pos.x][this.Pos.y] = false;
+		this.ground.FreeCollision(this.Pos.x, this.Pos.y);
 	}
 }
