@@ -9,67 +9,23 @@
 
 	constructor(data: PlayerFullData, parent: PIXI.DisplayObjectContainer, ground: Ground) {
 		super(data, parent, ground );
-		this.standSpr = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Pic.Src);
-		this.standSpr.position = new PIXI.Point(-(config.Players[0].Pic.Width - 70) / 2, -(config.Players[0].Pic.Height - 70) / 2);
+		this.setupGraphics(data, parent);
+	}
 
-		this.rotatingContainer.addChild(this.standSpr);
-	
-		this.teleport.InAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn, 0.8, false);
-		this.teleport.InAnim.visible = false;
-		this.rotatingContainer.addChild(this.teleport.InAnim);
-
-		this.teleport.OutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut, 0.8, false);
-		this.teleport.OutAnim.visible = false;
-		this.rotatingContainer.addChild(this.teleport.OutAnim);
-
-		this.ultimateAnim = MovieClipFactory.Create(config.Players[0].Anim.Ultimate, 0.8, false);
-		this.ultimateAnim.visible = false;
-		this.rotatingContainer.addChildAt(this.ultimateAnim, 0);
-
-
-		this.bolt.Anim = MovieClipFactory.Create(config.Players[0].Anim.Bolt, 1.0, false);
-		this.bolt.Anim.visible = false;
-		this.bolt.Anim.loop = true;
-		parent.addChild(this.bolt.Anim);
+	Update() {
+		if (this.bolt.Anim.visible) {
+			this.bolt.Dist += 1 / 60;
+			this.bolt.Anim.x += this.bolt.V.x / 60;
+			this.bolt.Anim.y += this.bolt.V.y / 60;
+			if (this.bolt.Dist > 0.5) {
+				this.bolt.Anim.visible = false;
+			}
+		}
 	}
 
 	PerformAbility(Abidata: AbilityData, OnDone?: () => void) {
 		if (Abidata.Key.search(/[QWAS]/) !== -1) {
-			this.standSpr.visible = false;
-			this.teleport.InAnim.visible = true;
-			this.teleport.InAnim.gotoAndPlay(0);
-
-			this.teleport.InAnim.onComplete = () => {
-				var tmpV = { x: 0, y: 0 };
-				if (Abidata.Key === "Q") {
-					tmpV.x += -Abidata.AddInfo;
-					tmpV.y += -Abidata.AddInfo;
-				}
-				if (Abidata.Key === "W") {
-					tmpV.x += Abidata.AddInfo;
-					tmpV.y += -Abidata.AddInfo;
-				}
-				if (Abidata.Key === "A") {
-					tmpV.x += -Abidata.AddInfo;
-					tmpV.y += Abidata.AddInfo;
-				}
-				if (Abidata.Key === "S") {
-					tmpV.x += Abidata.AddInfo;
-					tmpV.y += Abidata.AddInfo;
-				}
-
-				this.Move({ ID: "", Pos: { x: this.Pos.x + tmpV.x, y: this.Pos.y + tmpV.y }, Rot: this.Rotation});
-				this.teleport.InAnim.visible = false;
-				this.teleport.OutAnim.visible = true;
-				this.teleport.OutAnim.gotoAndPlay(0);
-
-				this.teleport.OutAnim.onComplete = () => {
-					setTimeout(() => { this.standSpr.visible = true; this.teleport.OutAnim.visible = false; }, 0);
-					if (OnDone) {
-						OnDone();
-					}
-				}
-			}
+			this.performTeleport(Abidata, OnDone);
 		}
 
 		if (Abidata.Key === "E") {
@@ -101,7 +57,6 @@
 		}
 
 	}
-
 
 	AbilityKeyPress(keyLetter: string, onDone: (Abidata: AbilityData) => void) {
 		if (keyLetter.search(/[QWAS]/) !== -1) {
@@ -143,15 +98,66 @@
 		}
 	}
 
-	Update() {
-		if (this.bolt.Anim.visible) {
-			this.bolt.Dist += 1 / 60;
-			this.bolt.Anim.x += this.bolt.V.x / 60;
-			this.bolt.Anim.y += this.bolt.V.y / 60;
-			if (this.bolt.Dist > 0.5) {
-				this.bolt.Anim.visible = false;
+	private performTeleport(Abidata: AbilityData, OnDone) {
+		this.standSpr.visible = false;
+		this.teleport.InAnim.visible = true;
+		this.teleport.InAnim.gotoAndPlay(0);
+
+		this.teleport.InAnim.onComplete = () => {
+			var tmpV = { x: 0, y: 0 };
+			if (Abidata.Key === "Q") {
+				tmpV.x += -Abidata.AddInfo;
+				tmpV.y += -Abidata.AddInfo;
+			}
+			if (Abidata.Key === "W") {
+				tmpV.x += Abidata.AddInfo;
+				tmpV.y += -Abidata.AddInfo;
+			}
+			if (Abidata.Key === "A") {
+				tmpV.x += -Abidata.AddInfo;
+				tmpV.y += Abidata.AddInfo;
+			}
+			if (Abidata.Key === "S") {
+				tmpV.x += Abidata.AddInfo;
+				tmpV.y += Abidata.AddInfo;
+			}
+
+			this.Move({ ID: "", Pos: { x: this.Pos.x + tmpV.x, y: this.Pos.y + tmpV.y }, Rot: this.Rotation });
+			this.teleport.InAnim.visible = false;
+			this.teleport.OutAnim.visible = true;
+			this.teleport.OutAnim.gotoAndPlay(0);
+
+			this.teleport.OutAnim.onComplete = () => {
+				setTimeout(() => { this.standSpr.visible = true; this.teleport.OutAnim.visible = false; }, 0);
+				if (OnDone) {
+					OnDone();
+				}
 			}
 		}
 	}
 
+	private setupGraphics(data: PlayerFullData, parent: PIXI.DisplayObjectContainer,) {
+		this.standSpr = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Pic.Src);
+		this.standSpr.position = new PIXI.Point(-(config.Players[0].Pic.Width - 70) / 2, -(config.Players[0].Pic.Height - 70) / 2);
+
+		this.rotatingContainer.addChild(this.standSpr);
+
+		this.teleport.InAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn, 0.8, false);
+		this.teleport.InAnim.visible = false;
+		this.rotatingContainer.addChild(this.teleport.InAnim);
+
+		this.teleport.OutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut, 0.8, false);
+		this.teleport.OutAnim.visible = false;
+		this.rotatingContainer.addChild(this.teleport.OutAnim);
+
+		this.ultimateAnim = MovieClipFactory.Create(config.Players[0].Anim.Ultimate, 0.8, false);
+		this.ultimateAnim.visible = false;
+		this.rotatingContainer.addChildAt(this.ultimateAnim, 0);
+
+
+		this.bolt.Anim = MovieClipFactory.Create(config.Players[0].Anim.Bolt, 1.0, false);
+		this.bolt.Anim.visible = false;
+		this.bolt.Anim.loop = true;
+		parent.addChild(this.bolt.Anim);
+	}
 }
