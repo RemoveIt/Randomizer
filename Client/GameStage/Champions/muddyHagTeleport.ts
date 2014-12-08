@@ -17,7 +17,7 @@
 		this.OutAnim.visible = false;
 	}
 
-	AbilityKeyPress(CurrentKey: string, OnSuccess: (abiData: AbilityData) => void) {
+	OnKeyPress(CurrentKey: string, OnSuccess: (abiData: AbilityData) => void) {
 		if (this.LastKey == "") {
 			this.LastKey = CurrentKey;
 		}

@@ -11,11 +11,9 @@
 
 	SetCollision(x, y) {
 		this.CollisionMap[x][y] = true;
-		console.log("Set: " + x + " " + y);
 	}
 
 	FreeCollision(x, y) {
 		this.CollisionMap[x][y] = false;
-		console.log("Free: " + x + " " + y);
 	}
 }

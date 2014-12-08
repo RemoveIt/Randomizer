@@ -31,7 +31,6 @@ class CurrentPlayer implements IKeyboardListener {
 				this.socket.emit("Player", {
 					Type: "Ability", Data: [Abidata]
 				});
-				this.player.PerformAbility(Abidata);
 			});
 			return;
 		}
