@@ -3,7 +3,6 @@
 class CurrentPlayer implements IKeyboardListener {
 	private socket: SocketIOClient.Socket;
 	private lastKeyTime: number = 0;
-	private busy = false;
 	private ground: Ground;
 	player: Player;
 
@@ -25,17 +24,14 @@ class CurrentPlayer implements IKeyboardListener {
 			}
 		}
 
-		if (this.busy) { return; }
+		if (this.player.Busy) { return; }
 		//Ability
 		if (String.fromCharCode(evt.keyCode).toUpperCase().search(/[A-Z]/) !== -1) {
 			this.player.AbilityKeyPress(String.fromCharCode(evt.keyCode).toUpperCase(), (Abidata: AbilityData) => {
-				this.busy = true;
 				this.socket.emit("Player", {
 					Type: "Ability", Data: [Abidata]
 				});
-				this.player.PerformAbility(Abidata, () => {
-					this.busy = false;
-				})
+				this.player.PerformAbility(Abidata);
 			});
 			return;
 		}
