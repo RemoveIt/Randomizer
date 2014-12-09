@@ -1,6 +1,6 @@
 ﻿class Ground {
 	Sprite: PIXI.Sprite;
-	CollisionMap: boolean[][];
+	private CollisionMap: boolean[][];
 	constructor() {
 		this.Sprite = PIXI.Sprite.fromImage(config.Ground.Src);
 		this.CollisionMap = new Array<boolean[]>(config.Ground.Size.x);
@@ -15,5 +15,11 @@
 
 	FreeCollision(x, y) {
 		this.CollisionMap[x][y] = false;
+	}
+
+	GetCollision(x, y): boolean {
+		if (x < 0 || y < 0) return true;
+		if (x > this.CollisionMap.length -1 || y > this.CollisionMap[0].length - 1) return true;
+		return this.CollisionMap[x][y];
 	}
 }
