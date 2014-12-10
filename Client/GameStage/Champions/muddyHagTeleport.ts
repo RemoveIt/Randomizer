@@ -46,7 +46,7 @@
 
 		this.InAnim.onComplete = () => {
 			var tmpV = this.GetMoveVByKey(Abidata.Key, Abidata.AddInfo);
-			muddyHag.MoveTo(tmpV.x, tmpV.y);
+			muddyHag.MoveTo(muddyHag.Pos.x + tmpV.x, muddyHag.Pos.y + tmpV.y);
 			this.InAnim.visible = false;
 			this.OutAnim.visible = true;
 			this.OutAnim.gotoAndPlay(0);
@@ -64,15 +64,15 @@
 	private GetMoveVByKey(key: string, length: number): IPoint {
 		var tmpV = { x: 0, y: 0 };
 		if (key === "Q") {
-			tmpV.x += -length;
-			tmpV.y += -length;
+			tmpV.x -= length;
+			tmpV.y -= length;
 		}
 		if (key === "W") {
 			tmpV.x += length;
-			tmpV.y += -length;
+			tmpV.y -= length;
 		}
 		if (key === "A") {
-			tmpV.x += -length;
+			tmpV.x -= length;
 			tmpV.y += length;
 		}
 		if (key === "S") {

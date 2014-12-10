@@ -35,6 +35,10 @@ class Player {
 		this.ground.SetCollision(this.Pos.x, this.Pos.y);
 	}
 
+	AbilityKeyPress(keyLetter: string, onDone?: (Abidata: AbilityData) => void) { }
+	PerformAbility(abidata: AbilityData, OnDone?: () => void) { }
+	Update(FPS) { }
+
 	MoveTo(x: number, y: number) {
 		this.ground.FreeCollision(this.Pos.x, this.Pos.y);
 		this.Pos.x = x;
@@ -44,7 +48,6 @@ class Player {
 		this.ground.SetCollision(this.Pos.x, this.Pos.y);
 	}
 
-
 	Move(movingData: MovingData) {
 		this.MoveTo(movingData.Pos.x, movingData.Pos.y);
 		this.Rotate(movingData.Rot);
@@ -53,15 +56,6 @@ class Player {
 	Rotate(Rot: Rotation) {
 		this.Rotation = Rot;
 		this.rotatingContainer.rotation = (Rot - 1) * Math.PI / 2;
-	}
-
-	AbilityKeyPress(keyLetter: string, onDone?: (Abidata: AbilityData) => void) {
-	}
-
-	PerformAbility(abidata: AbilityData, OnDone?: () => void) {
-	}
-
-	Update(FPS) {
 	}
 
 	LoseHP(dmg: number) {
