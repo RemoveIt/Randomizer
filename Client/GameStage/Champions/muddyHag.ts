@@ -1,7 +1,7 @@
 ﻿class MuddyHag extends Player {
 	Champion = Champions.MuddyHag;
 	HP = config.Players[this.Champion].MaxHP;
-	private standSpr: PIXI.Sprite;
+	standSpr: PIXI.Sprite;
 	private teleport = new muddyHagTeleport();
 	private bolt = new muddyHagBolt();
 	private ultimateAnim: PIXI.MovieClip;
@@ -28,8 +28,8 @@
 		this.rotatingContainer.addChildAt(this.ultimateAnim, 0);
 	}
 
-	Update() {
-		this.bolt.Update();
+	Update(FPS) {
+		this.bolt.Update(FPS);
 	}
 
 	AbilityKeyPress(keyLetter: string, onDone: (Abidata: AbilityData) => void) {
@@ -58,19 +58,10 @@
 
 	PerformAbility(Abidata: AbilityData) {
 		if (this.teleport.IsRightKey(Abidata.Key)) {
-			this.Busy = true;
-			this.standSpr.visible = false;
-			this.teleport.Start(Abidata,this,
-				() => {
-					this.standSpr.visible = true;
-					this.Busy = false;
-				});
+			this.teleport.Start(Abidata,this);
 		}
 
 		if (this.bolt.IsRightKey(Abidata.Key)) {
-			var tmpPos = this.PixiContainer.position.clone();
-			tmpPos.x -= 35;
-			tmpPos.y -= 35;
 			this.bolt.Start(this);
 		}
 

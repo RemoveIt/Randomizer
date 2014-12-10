@@ -2,7 +2,7 @@
 
 	PixiStage: PIXI.Stage;
 	private socket: SocketIOClient.Socket;
-	private playerManager: PlayersGroup;
+	private playerGroup: PlayersGroup;
 	private playersNetwork: PlayersNetwork;
 	private ground = new Ground();
 	private objectContainer = new PIXI.DisplayObjectContainer();
@@ -12,8 +12,8 @@
 		this.socket = socket;
 		this.PixiStage = new PIXI.Stage(0);
 		this.PixiStage.addChild(this.objectContainer);
-		this.playerManager = new PlayersGroup(this.objectContainer, this.ground);
-		this.playersNetwork = new PlayersNetwork(this.socket, this.playerManager);
+		this.playerGroup = new PlayersGroup(this.objectContainer, this.ground);
+		this.playersNetwork = new PlayersNetwork(this.socket, this.playerGroup);
 		
 	}
 
@@ -21,12 +21,12 @@
 		this.objectContainer.addChild(this.ground.Sprite);
 		this.objectContainer.addChild(this.hud.PixiContainer);
 		this.playersNetwork.Setup();
-		this.playerManager.ReqForCurrentPlayerData(this.socket, () => {
+		this.playerGroup.ReqForCurrentPlayerData(this.socket, () => {
 			onDone();
 		});
 	}
 
-	Update() {
-		this.playerManager.Update();
+	Update(FPS: number) {
+		this.playerGroup.Update(FPS);
 	}
 }

@@ -33,11 +33,11 @@
 		this.Anim.loop = true;
 	}
 
-	Update() {
+	Update(FPS) {
 		if (this.Anim.visible) {
-			this.Dist += 1 / 60;
-			this.Anim.x += this.V.x / 60;
-			this.Anim.y += this.V.y / 60;
+			this.Dist += 1 / FPS;
+			this.Anim.x += this.V.x / FPS;
+			this.Anim.y += this.V.y / FPS;
 			if (this.Dist > 0.5) {
 				this.Anim.visible = false;
 				this.Dist = 0;

@@ -39,7 +39,7 @@
     <TypeScriptCompile Include="GameStage\hud.ts" />
     <TypeScriptCompile Include="GameStage\movieClipFactory.ts" />
     <TypeScriptCompile Include="GameStage\player.ts" />
-    <TypeScriptCompile Include="GameStage\playersManger.ts" />
+    <TypeScriptCompile Include="GameStage\playersGroup.ts" />
     <TypeScriptCompile Include="GameStage\playersNetwork.ts" />
     <TypeScriptCompile Include="start.ts" />
     <TypeScriptCompile Include="keyboardManager.ts" />

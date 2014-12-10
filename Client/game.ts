@@ -22,8 +22,17 @@
 	}
 
 	Render() {
-
-		this.GameStage.Update();
+		var FPS = this.CalcFPS();
+		this.GameStage.Update(FPS);
 		this.Renderer.render(this.GameStage.PixiStage);
+	}
+
+	private lastFpsTime = 0;
+	private CalcFPS(): number {
+		var currTime = window.performance.now();
+		var deltaTime = currTime - this.lastFpsTime;
+		this.lastFpsTime = currTime;
+		return 1000 / deltaTime;
+		
 	}
 } 

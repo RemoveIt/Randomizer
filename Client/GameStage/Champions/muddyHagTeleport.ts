@@ -38,7 +38,9 @@
 		}
 	}
 
-	Start(Abidata: AbilityData, muddyHag: MuddyHag, OnAllDone: () => void) {
+	Start(Abidata: AbilityData, muddyHag: MuddyHag) {
+		muddyHag.Busy = true;
+		muddyHag.standSpr.visible = false;
 		this.InAnim.visible = true;
 		this.InAnim.gotoAndPlay(0);
 
@@ -51,7 +53,8 @@
 
 			this.OutAnim.onComplete = () => {
 				setTimeout(() => {
-					OnAllDone();
+					muddyHag.standSpr.visible = true;
+					muddyHag.Busy = false;
 					this.OutAnim.visible = false;
 				}, 0);
 			}

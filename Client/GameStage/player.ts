@@ -61,7 +61,7 @@ class Player {
 	PerformAbility(abidata: AbilityData, OnDone?: () => void) {
 	}
 
-	Update() {
+	Update(FPS) {
 	}
 
 	LoseHP(dmg: number) {

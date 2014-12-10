@@ -33,9 +33,9 @@
 		}
 	}
 
-	Update() {
+	Update(FPS) {
 		for (var i = 0; i < this.List.length; i++) {
-			this.List[i].Update();
+			this.List[i].Update(FPS);
 		}
 	}
 
