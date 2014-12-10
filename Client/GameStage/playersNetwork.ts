@@ -1,9 +1,9 @@
 ﻿class PlayersNetwork {
 	private socket: SocketIOClient.Socket;
-	private playersManager: PlayersManager;
+	private playersManager: PlayersGroup;
 	
 
-	constructor(socket: SocketIOClient.Socket, playersManager: PlayersManager) {
+	constructor(socket: SocketIOClient.Socket, playersManager: PlayersGroup) {
 		this.socket = socket;
 		this.playersManager = playersManager;
 		

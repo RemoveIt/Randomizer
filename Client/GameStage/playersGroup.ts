@@ -1,4 +1,4 @@
-﻿class PlayersManager {
+﻿class PlayersGroup {
 
 	List: Player[] = [];
 	CurrPlayer: CurrentPlayer;
@@ -22,7 +22,6 @@
 		}
 		return null;
 	}
-
 
 	Remove(ID: string) {
 		for (var i = 0; i < this.List.length; i++) {

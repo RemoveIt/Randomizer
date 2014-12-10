@@ -11,6 +11,23 @@
 		this.setupGraphics(data, parent);
 	}
 
+	private setupGraphics(data: PlayerFullData, parent: PIXI.DisplayObjectContainer) {
+		this.standSpr = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Pic.Src);
+		this.standSpr.position = new PIXI.Point(-(config.Players[0].Pic.Width - 70) / 2, -(config.Players[0].Pic.Height - 70) / 2);
+
+		this.rotatingContainer.addChild(this.standSpr);
+
+		this.teleport.SetupMovieClips();
+		this.bolt.SetupMovieClip();
+		this.rotatingContainer.addChild(this.teleport.InAnim);
+		this.rotatingContainer.addChild(this.teleport.OutAnim);
+		parent.addChild(this.bolt.Anim);
+
+		this.ultimateAnim = MovieClipFactory.Create(config.Players[0].Anim.Ultimate, 0.8, false);
+		this.ultimateAnim.visible = false;
+		this.rotatingContainer.addChildAt(this.ultimateAnim, 0);
+	}
+
 	Update() {
 		this.bolt.Update();
 	}
@@ -43,10 +60,7 @@
 		if (this.teleport.IsRightKey(Abidata.Key)) {
 			this.Busy = true;
 			this.standSpr.visible = false;
-			this.teleport.Start(Abidata,
-				(V) => {
-					this.MoveTo(this.Pos.x + V.x, this.Pos.y + V.y);
-				},
+			this.teleport.Start(Abidata,this,
 				() => {
 					this.standSpr.visible = true;
 					this.Busy = false;
@@ -57,7 +71,7 @@
 			var tmpPos = this.PixiContainer.position.clone();
 			tmpPos.x -= 35;
 			tmpPos.y -= 35;
-			this.bolt.PerformAbility(tmpPos, this.Rotation);
+			this.bolt.Start(this);
 		}
 
 		if (Abidata.Key === "D") {
@@ -69,22 +83,5 @@
 				this.ultimateAnim.visible = false;
 			}
 		}
-	}
-
-	private setupGraphics(data: PlayerFullData, parent: PIXI.DisplayObjectContainer) {
-		this.standSpr = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Pic.Src);
-		this.standSpr.position = new PIXI.Point(-(config.Players[0].Pic.Width - 70) / 2, -(config.Players[0].Pic.Height - 70) / 2);
-
-		this.rotatingContainer.addChild(this.standSpr);
-
-		this.teleport.SetupMovieClips();
-		this.bolt.SetupMovieClip();
-		this.rotatingContainer.addChild(this.teleport.InAnim);
-		this.rotatingContainer.addChild(this.teleport.OutAnim);
-		parent.addChild(this.bolt.Anim);
-
-		this.ultimateAnim = MovieClipFactory.Create(config.Players[0].Anim.Ultimate, 0.8, false);
-		this.ultimateAnim.visible = false;
-		this.rotatingContainer.addChildAt(this.ultimateAnim, 0);
 	}
 }

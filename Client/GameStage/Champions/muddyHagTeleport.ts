@@ -12,7 +12,6 @@
 	SetupMovieClips() {
 		this.InAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportIn, 0.8, false);
 		this.InAnim.visible = false;
-
 		this.OutAnim = MovieClipFactory.Create(config.Players[0].Anim.TeleportOut, 0.8, false);
 		this.OutAnim.visible = false;
 	}
@@ -30,7 +29,6 @@
 			clearTimeout(this.TimeoutHandle);
 			this.TimeoutHandle = setTimeout(() => {
 				var abiData = { ID: "", Key: this.LastKey, AddInfo: this.KeyPressCount };
-
 				OnSuccess(abiData);
 
 				this.KeyPressCount = 0;
@@ -40,30 +38,13 @@
 		}
 	}
 
-	Start(Abidata: AbilityData, OnMoveRequest: (V: IPoint) => void, OnAllDone: () => void) {
+	Start(Abidata: AbilityData, muddyHag: MuddyHag, OnAllDone: () => void) {
 		this.InAnim.visible = true;
 		this.InAnim.gotoAndPlay(0);
 
 		this.InAnim.onComplete = () => {
-			var tmpV = { x: 0, y: 0 };
-			if (Abidata.Key === "Q") {
-				tmpV.x += -Abidata.AddInfo;
-				tmpV.y += -Abidata.AddInfo;
-			}
-			if (Abidata.Key === "W") {
-				tmpV.x += Abidata.AddInfo;
-				tmpV.y += -Abidata.AddInfo;
-			}
-			if (Abidata.Key === "A") {
-				tmpV.x += -Abidata.AddInfo;
-				tmpV.y += Abidata.AddInfo;
-			}
-			if (Abidata.Key === "S") {
-				tmpV.x += Abidata.AddInfo;
-				tmpV.y += Abidata.AddInfo;
-			}
-
-			OnMoveRequest(tmpV);
+			var tmpV = this.GetMoveVByKey(Abidata.Key, Abidata.AddInfo);
+			muddyHag.MoveTo(tmpV.x, tmpV.y);
 			this.InAnim.visible = false;
 			this.OutAnim.visible = true;
 			this.OutAnim.gotoAndPlay(0);
@@ -75,5 +56,26 @@
 				}, 0);
 			}
 		}
+	}
+
+	private GetMoveVByKey(key: string, length: number): IPoint {
+		var tmpV = { x: 0, y: 0 };
+		if (key === "Q") {
+			tmpV.x += -length;
+			tmpV.y += -length;
+		}
+		if (key === "W") {
+			tmpV.x += length;
+			tmpV.y += -length;
+		}
+		if (key === "A") {
+			tmpV.x += -length;
+			tmpV.y += length;
+		}
+		if (key === "S") {
+			tmpV.x += length;
+			tmpV.y += length;
+		}
+		return tmpV;
 	}
 }
