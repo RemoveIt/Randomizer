@@ -51,16 +51,16 @@ class CurrentPlayer implements IKeyboardListener {
 
 	private Move() {
 		var tmpV = { x: 0, y: 0 };
-		if (this.player.Rotation === Rotation.Left && !this.ground.GetCollision(this.player.Pos.x - 1, this.player.Pos.y)) {
+		if (this.player.Rotation === Rotation.Left && !this.ground.GetCollision(this.player.Pos.x, this.player.Pos.y, Rotation.Left)) {
 			tmpV.x -= 1;
 		}
-		if (this.player.Rotation === Rotation.Up && !this.ground.GetCollision(this.player.Pos.x, this.player.Pos.y - 1)) {
+		if (this.player.Rotation === Rotation.Up && !this.ground.GetCollision(this.player.Pos.x, this.player.Pos.y, Rotation.Up)) {
 			tmpV.y -= 1;
 		}
-		if (this.player.Rotation === Rotation.Right && !this.ground.GetCollision(this.player.Pos.x + 1, this.player.Pos.y)) {
+		if (this.player.Rotation === Rotation.Right && !this.ground.GetCollision(this.player.Pos.x, this.player.Pos.y, Rotation.Right)) {
 			tmpV.x += 1;
 		}
-		if (this.player.Rotation === Rotation.Down && !this.ground.GetCollision(this.player.Pos.x, this.player.Pos.y + 1)) {
+		if (this.player.Rotation === Rotation.Down && !this.ground.GetCollision(this.player.Pos.x, this.player.Pos.y, Rotation.Down)) {
 			tmpV.y += 1;
 		}
 		var data = {

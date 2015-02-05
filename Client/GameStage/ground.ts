@@ -17,9 +17,27 @@
 		this.CollisionMap[x][y] = false;
 	}
 
-	GetCollision(x, y): boolean {
-		if (x < 0 || y < 0) return true;
-		if (x > this.CollisionMap.length -1 || y > this.CollisionMap[0].length - 1) return true;
-		return this.CollisionMap[x][y];
+	GetCollision(x: number, y: number, rot: Rotation): boolean {
+		if (rot === Rotation.Up) {
+			if (config.Ground.UpDownSideColl[y][x]) return true;
+			else return false;
+		}
+
+		if (rot === Rotation.Right) {
+			if (config.Ground.LeftRightSideColl[y][x + 1]) return true;
+			else return false;
+		}
+
+		if (rot === Rotation.Down) {
+			if (config.Ground.UpDownSideColl[y + 1][x]) return true;
+			else return false;
+		}
+
+		if (rot === Rotation.Left) {
+			if (config.Ground.LeftRightSideColl[y][x]) return true;
+			else return false;
+		}
+
+		return true;
 	}
 }
