@@ -14,5 +14,5 @@
             }
         }
     ],
-    groundSrc: "map/map_shadows.png"
+    groundSrc: "map/map.png"
 };
