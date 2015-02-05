@@ -231,3 +231,6 @@ $RECYCLE.BIN/
 Server/**/*.js
 out/
 .ntvs_analysis.dat
+Client/*.js
+InterchangeFormat/*.js
+Client/GameStage/**/*.js
