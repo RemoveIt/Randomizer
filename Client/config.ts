@@ -25,7 +25,7 @@
 		}
 	],
 	Ground: {
-		Src: "map/map_new.png",
+		Src: "map/map.png",
 		Size: { x: 10, y: 10 }
 	},
 	hudSrc: "hud/hud.png"
