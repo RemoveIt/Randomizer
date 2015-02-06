@@ -51,7 +51,8 @@
 			[1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1],
 			[1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1],
 			[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-		 ]
+		],
+		WatarAnim: { Path: "map/water/", FrameCount: 10, Width: 368, Height: 436 }
 	},
 	hudSrc: "hud/hud.png"
 }

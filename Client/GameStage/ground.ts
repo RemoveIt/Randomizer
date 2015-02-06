@@ -1,20 +1,20 @@
 ﻿class Ground {
-	Sprite: PIXI.Sprite;
-	private CollisionMap: boolean[][];
+	BackgroundSprite: PIXI.Sprite;
+	WaterAnimation: PIXI.MovieClip;
 	constructor() {
-		this.Sprite = PIXI.Sprite.fromImage(config.Ground.Src);
-		this.CollisionMap = new Array<boolean[]>(config.Ground.Size.x);
-		for (var i = 0; i < config.Ground.Size.x; i++) {
-			this.CollisionMap[i] = new Array<boolean>(config.Ground.Size.y);
-		}
+		this.BackgroundSprite = PIXI.Sprite.fromImage(config.Ground.Src);
+
+		this.WaterAnimation = MovieClipFactory.Create(config.Ground.WatarAnim, 0.12, true);
+		this.WaterAnimation.anchor.x = 0;
+		this.WaterAnimation.anchor.y = 0;
+		this.WaterAnimation.position.x = 332;
+		this.WaterAnimation.position.y = 0;
 	}
 
-	SetCollision(x, y) {
-		this.CollisionMap[x][y] = true;
+	SetCollision(x:number, y:number) {
 	}
 
-	FreeCollision(x, y) {
-		this.CollisionMap[x][y] = false;
+	FreeCollision(x:number, y:number) {
 	}
 
 	GetCollision(x: number, y: number, rot: Rotation): boolean {

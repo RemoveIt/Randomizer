@@ -18,7 +18,9 @@
 	}
 
 	Start(onDone: () => void) {
-		this.objectContainer.addChild(this.ground.Sprite);
+		this.objectContainer.addChild(this.ground.BackgroundSprite);
+		this.objectContainer.addChild(this.ground.WaterAnimation);
+		this.ground.WaterAnimation.play();
 		this.objectContainer.addChild(this.hud.PixiContainer);
 		this.playersNetwork.Setup();
 		this.playerGroup.ReqForCurrentPlayerData(this.socket, () => {
