@@ -24,7 +24,7 @@
 	Render() {
 		var FPS = this.CalcFPS();
 		this.GameStage.Update(FPS);
-		this.Renderer.render(this.GameStage.PixiStage);
+		this.Renderer.render(this.GameStage);
 	}
 
 	private lastFpsTime = 0;

@@ -46,7 +46,7 @@
 
 		this.InAnim.onComplete = () => {
 			var tmpV = this.GetMoveVByKey(Abidata.Key, Abidata.AddInfo);
-			muddyHag.MoveTo(muddyHag.Pos.x + tmpV.x, muddyHag.Pos.y + tmpV.y);
+			muddyHag.MoveTo(muddyHag.TilePos.x + tmpV.x, muddyHag.TilePos.y + tmpV.y);
 			this.InAnim.visible = false;
 			this.OutAnim.visible = true;
 			this.OutAnim.gotoAndPlay(0);

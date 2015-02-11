@@ -1,10 +1,9 @@
-﻿class Hud {
-
-	PixiContainer = new PIXI.DisplayObjectContainer();
+﻿class Hud extends PIXI.DisplayObjectContainer {
 	private backGround: PIXI.Sprite;
 	constructor() {
+		super();
 		this.backGround = PIXI.Sprite.fromImage(config.hudSrc);
-		this.PixiContainer.x = 700;
-		this.PixiContainer.addChild(this.backGround);
+		this.x = 700;
+		this.addChild(this.backGround);
 	}
 }

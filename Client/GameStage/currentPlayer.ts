@@ -21,7 +21,7 @@ class CurrentPlayer implements IKeyboardListener {
 				this.player.Rotate(rotationFromKeyCode);
 				var data = {
 					ID: this.player.ID,
-					Pos: { x: this.player.Pos.x, y: this.player.Pos.y },
+					Pos: { x: this.player.TilePos.x, y: this.player.TilePos.y },
 					Rot: this.player.Rotation
 				};
 				this.socket.emit("Player", { Type: "Moving", Data: [data] });
@@ -51,21 +51,21 @@ class CurrentPlayer implements IKeyboardListener {
 
 	private Move() {
 		var tmpV = { x: 0, y: 0 };
-		if (this.player.Rotation === Rotation.Left && !this.ground.GetCollision(this.player.Pos.x, this.player.Pos.y, Rotation.Left)) {
+		if (this.player.Rotation === Rotation.Left && !this.ground.GetCollision(this.player.TilePos.x, this.player.TilePos.y, Rotation.Left)) {
 			tmpV.x -= 1;
 		}
-		if (this.player.Rotation === Rotation.Up && !this.ground.GetCollision(this.player.Pos.x, this.player.Pos.y, Rotation.Up)) {
+		if (this.player.Rotation === Rotation.Up && !this.ground.GetCollision(this.player.TilePos.x, this.player.TilePos.y, Rotation.Up)) {
 			tmpV.y -= 1;
 		}
-		if (this.player.Rotation === Rotation.Right && !this.ground.GetCollision(this.player.Pos.x, this.player.Pos.y, Rotation.Right)) {
+		if (this.player.Rotation === Rotation.Right && !this.ground.GetCollision(this.player.TilePos.x, this.player.TilePos.y, Rotation.Right)) {
 			tmpV.x += 1;
 		}
-		if (this.player.Rotation === Rotation.Down && !this.ground.GetCollision(this.player.Pos.x, this.player.Pos.y, Rotation.Down)) {
+		if (this.player.Rotation === Rotation.Down && !this.ground.GetCollision(this.player.TilePos.x, this.player.TilePos.y, Rotation.Down)) {
 			tmpV.y += 1;
 		}
 		var data = {
 			ID: this.player.ID,
-			Pos: { x: this.player.Pos.x + tmpV.x, y: this.player.Pos.y + tmpV.y },
+			Pos: { x: this.player.TilePos.x + tmpV.x, y: this.player.TilePos.y + tmpV.y },
 			Rot: this.player.Rotation
 		};
 		this.player.Move(data);

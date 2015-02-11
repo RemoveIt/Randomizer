@@ -26,7 +26,7 @@
 	Remove(ID: string) {
 		for (var i = 0; i < this.List.length; i++) {
 			if (this.List[i].ID === ID) {
-				this.PixiStage.removeChild(this.List[i].PixiContainer);
+				this.PixiStage.removeChild(this.List[i]);
 				this.List[i].Dispose();
 				this.List.splice(i, 1);
 			}
@@ -43,7 +43,7 @@
 		socket.on("FirstPlayer", (data: ServerResponse) => {
 			this.CurrPlayer = new CurrentPlayer(new MuddyHag(data.Data[0], this.PixiStage, this.ground), socket, this.ground);
 			this.List.push(this.CurrPlayer.player);
-			this.PixiStage.addChild(this.CurrPlayer.player.PixiContainer);
+			this.PixiStage.addChild(this.CurrPlayer.player);
 			onDone();
 		});
 	}

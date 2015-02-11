@@ -1,7 +1,9 @@
-﻿class Ground {
-	BackgroundSprite: PIXI.Sprite;
-	WaterAnimation: PIXI.MovieClip;
+﻿class Ground extends PIXI.DisplayObjectContainer {
+	private BackgroundSprite: PIXI.Sprite;
+	private WaterAnimation: PIXI.MovieClip;
+
 	constructor() {
+		super();
 		this.BackgroundSprite = PIXI.Sprite.fromImage(config.Ground.Src);
 
 		this.WaterAnimation = MovieClipFactory.Create(config.Ground.WatarAnim, 0.12, true);
@@ -9,6 +11,9 @@
 		this.WaterAnimation.anchor.y = 0;
 		this.WaterAnimation.position.x = 332;
 		this.WaterAnimation.position.y = 0;
+		this.WaterAnimation.play();
+		this.addChild(this.BackgroundSprite);
+		this.addChild(this.WaterAnimation);
 	}
 
 	SetCollision(x:number, y:number) {

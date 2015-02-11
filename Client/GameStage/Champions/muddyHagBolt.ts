@@ -20,8 +20,8 @@
 		this.V.x = Math.sin((muddyhag.Rotation - 1) * Math.PI / 2) * 560;
 		this.V.y = -Math.cos((muddyhag.Rotation - 1) * Math.PI / 2) * 560;
 
-		this.Anim.x = muddyhag.PixiContainer.x - 35;
-		this.Anim.y = muddyhag.PixiContainer.y - 35;
+		this.Anim.x = muddyhag.x - 35;
+		this.Anim.y = muddyhag.y - 35;
 		this.Anim.visible = true;
 		this.Anim.gotoAndPlay(0);
 	

@@ -1,6 +1,5 @@
-﻿class GameStage {
+﻿class GameStage extends PIXI.Stage {
 
-	PixiStage: PIXI.Stage;
 	private socket: SocketIOClient.Socket;
 	private playerGroup: PlayersGroup;
 	private playersNetwork: PlayersNetwork;
@@ -9,19 +8,17 @@
 	private hud = new Hud();
 
 	constructor(socket: SocketIOClient.Socket) {
+		super(0);
 		this.socket = socket;
-		this.PixiStage = new PIXI.Stage(0);
-		this.PixiStage.addChild(this.objectContainer);
+		this.addChild(this.objectContainer);
 		this.playerGroup = new PlayersGroup(this.objectContainer, this.ground);
 		this.playersNetwork = new PlayersNetwork(this.socket, this.playerGroup);
 		
 	}
 
 	Start(onDone: () => void) {
-		this.objectContainer.addChild(this.ground.BackgroundSprite);
-		this.objectContainer.addChild(this.ground.WaterAnimation);
-		this.ground.WaterAnimation.play();
-		this.objectContainer.addChild(this.hud.PixiContainer);
+		this.objectContainer.addChild(this.ground);
+		this.objectContainer.addChild(this.hud);
 		this.playersNetwork.Setup();
 		this.playerGroup.ReqForCurrentPlayerData(this.socket, () => {
 			onDone();

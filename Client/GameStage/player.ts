@@ -1,38 +1,38 @@
 ﻿/**
  * Somewhat abstract
  */
-class Player {
+class Player extends PIXI.DisplayObjectContainer {
 	ID: string;
-	PixiContainer = new PIXI.DisplayObjectContainer();
 	protected rotatingContainer = new PIXI.DisplayObjectContainer();
 	protected staticContainer = new PIXI.DisplayObjectContainer();
 	Rotation = Rotation.Up;
 	Champion = Champions.None;
 	MoveCooldown = 200;
 	HP = 0;
-	Pos = { x: 0, y: 0 };
+	TilePos = { x: 0, y: 0 };
 	Busy = false;
 	private hpBar: PIXI.Graphics;
 	protected ground: Ground;
 
 	constructor(data: PlayerFullData, parent: PIXI.DisplayObjectContainer, ground: Ground) {
+		super();
 		this.ground = ground;
 		this.ID = data.ID;
-		this.Pos.x = data.Pos.x;
-		this.Pos.y = data.Pos.y;
-		this.PixiContainer.position.x = data.Pos.x * 70 + 35;
-		this.PixiContainer.position.y = data.Pos.y * 70 + 35;
+		this.TilePos.x = data.Pos.x;
+		this.TilePos.y = data.Pos.y;
+		this.position.x = data.Pos.x * 70 + 35;
+		this.position.y = data.Pos.y * 70 + 35;
 		this.rotatingContainer.pivot = new PIXI.Point(35, 35);
-		this.PixiContainer.addChild(this.rotatingContainer);
+		this.addChild(this.rotatingContainer);
 		this.staticContainer.pivot = new PIXI.Point(35, 35);
-		this.PixiContainer.addChild(this.staticContainer);
-		parent.addChild(this.PixiContainer);
+		this.addChild(this.staticContainer);
+		parent.addChild(this);
 
 		this.hpBar = new PIXI.Graphics();
 		this.drawHPBar(1.0);
 		this.staticContainer.addChild(this.hpBar);
 
-		this.ground.SetCollision(this.Pos.x, this.Pos.y);
+		this.ground.SetCollision(this.TilePos.x, this.TilePos.y);
 	}
 
 	AbilityKeyPress(keyLetter: string, onDone?: (Abidata: AbilityData) => void) { }
@@ -40,12 +40,12 @@ class Player {
 	Update(FPS) { }
 
 	MoveTo(x: number, y: number) {
-		this.ground.FreeCollision(this.Pos.x, this.Pos.y);
-		this.Pos.x = x;
-		this.Pos.y = y;
-		this.PixiContainer.position.x = this.Pos.x * 70 + 35;
-		this.PixiContainer.position.y = this.Pos.y * 70 + 35;
-		this.ground.SetCollision(this.Pos.x, this.Pos.y);
+		this.ground.FreeCollision(this.TilePos.x, this.TilePos.y);
+		this.TilePos.x = x;
+		this.TilePos.y = y;
+		this.position.x = this.TilePos.x * 70 + 35;
+		this.position.y = this.TilePos.y * 70 + 35;
+		this.ground.SetCollision(this.TilePos.x, this.TilePos.y);
 	}
 
 	Move(movingData: MovingData) {
@@ -74,6 +74,6 @@ class Player {
 	}
 
 	Dispose() {
-		this.ground.FreeCollision(this.Pos.x, this.Pos.y);
+		this.ground.FreeCollision(this.TilePos.x, this.TilePos.y);
 	}
 }
