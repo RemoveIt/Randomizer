@@ -37,5 +37,5 @@ gulp.task("run", function () {
     .on("restart", function () {
     	console.log("Restarted")
     })
-	open("http://localhost");
+	// open("http://localhost");
 })

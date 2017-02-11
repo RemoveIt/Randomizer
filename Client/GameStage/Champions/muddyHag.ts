@@ -6,16 +6,20 @@
 	private bolt = new muddyHagBolt();
 	private ultimateAnim: PIXI.MovieClip;
 
+	standRotations = {};
+
 	constructor(data: PlayerFullData, parent: PIXI.DisplayObjectContainer, ground: Ground) {
 		super(data, parent, ground);
 		this.setupGraphics(data, parent);
 	}
 
 	private setupGraphics(data: PlayerFullData, parent: PIXI.DisplayObjectContainer) {
-		this.standSpr = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Pic.Src);
-		this.standSpr.position = new PIXI.Point(-(config.Players[0].Pic.Width - 70) / 2, -(config.Players[0].Pic.Height - 70) / 2);
 
-		this.rotatingContainer.addChild(this.standSpr);
+		for(var i =0;i<4;i++) {
+			this.standRotations[i] = PIXI.Sprite.fromImage(config.Players[Champions.MuddyHag].Pic.Src.replace("{rotation}", Rotation[i].toLowerCase()));
+			this.standRotations[i].position = new PIXI.Point(-(config.Players[0].Pic.Width - 70) / 2, -(config.Players[0].Pic.Height - 70) / 2);
+		}
+
 
 		this.teleport.SetupMovieClips();
 		this.bolt.SetupMovieClip();
@@ -54,6 +58,12 @@
 			onDone(abiData2);
 			this.PerformAbility(abiData2);
 		}
+	}
+
+	Rotate(Rot: Rotation): any {
+		this.staticContainer.removeChild(this.standRotations[this.Rotation]);
+		super.Rotate(Rot);
+		this.staticContainer.addChild(this.standRotations[this.Rotation]);
 	}
 
 	PerformAbility(Abidata: AbilityData) {

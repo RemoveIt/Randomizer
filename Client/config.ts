@@ -2,10 +2,11 @@
 	Players: [
 		{
 			Name: "Muddy Hag",
+			autoRotate:false,
 			MaxHP: 100,
 			Pic: {
-				Src: "champions/muddy_hag/stand.png",
-				Width: 210, Height: 210
+				Src: "champions/muddy_hag/stand_{rotation}.png",
+				Width: 100, Height: 100,
 			},
 
 			Anim: {
